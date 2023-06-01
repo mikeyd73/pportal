@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog">
+    <m2m_sp_portal_catalog action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <order>100</order>
+        <sc_catalog display_value="Cloud Operation Catalog">c1b81478678232005ca552e457415a6e</sc_catalog>
+        <sp_portal display_value="U-Centric Persona SSP">79da807adb867b00d3d574608c961982</sp_portal>
+        <sys_class_name>m2m_sp_portal_catalog</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-13 18:00:18</sys_created_on>
+        <sys_id>f12c4586db5e8450c266fcfa689619e8</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Cloud Operation Catalog.U-Centric Persona SSP</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>m2m_sp_portal_catalog_f12c4586db5e8450c266fcfa689619e8</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-13 18:00:18</sys_updated_on>
+    </m2m_sp_portal_catalog>
+</record_update>

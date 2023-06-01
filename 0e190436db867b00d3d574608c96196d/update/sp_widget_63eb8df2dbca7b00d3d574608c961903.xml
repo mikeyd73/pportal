@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spUtil) {
+
+	var c = this;
+
+	_createChart();
+
+
+	function _createChart() {
+
+		c.myChart = new Highcharts.Chart({
+			
+			// This is were we set the configuration
+			// parameters that are unique to each
+			// type of chart
+			chart: {
+				type: 'bar', // What Chart Type
+				renderTo: 'empCertBarDiv' // The DIV ID to render it into
+			},
+			title: {
+				text: 'Employee Certification Completion'
+			},
+			exporting: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			xAxis: {
+				categories: ['Ethics Training', 'Workplace Behavior', 'Security Practices', 'Other Non-Mandatory'],
+				title: {
+					text: null
+				}
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: 'Percent Complete',
+					align: 'high'
+				},
+				labels: {
+					overflow: 'justify'
+				}
+			},
+			tooltip: {
+				valueSuffix: ''
+			},
+			plotOptions: {
+				bar: {
+					dataLabels: {
+						enabled: true
+					}
+				}
+			},
+			legend: {
+//				layout: 'horizontal',
+//				align: 'center',
+//				verticalAlign: 'bottom',
+//				x: -40,
+//				y: 80,
+//				floating: false,
+//				borderWidth: 1,
+//				backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+//				shadow: true
+			},
+			series: c.data.mySeriesData // Set the series data from server script
+			
+		}); // END - Configuration parameters	
+
+	} // END - _createChart method
+
+} // END - Client Script]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* Make sure that padding behaves as expected */
+* {box-sizing:border-box}
+
+.panel-body {
+ padding-top: 0px;
+ height: 100%;
+ min-height : 300px;
+ max-height: 300px; 
+}
+
+// Doesnt work
+.bar-color {
+   background-color: #006000;
+}
+
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ssp-completion-bar-chart</id>
+        <internal>false</internal>
+        <link/>
+        <name>SSP-Completion-Bar-Chart</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	// Get an array of colors to use for the bars
+	var spc = new SSPChartUtils();
+	data.chartColors = spc.getCategoryPalette();
+	
+	// Normally, here's where we would create a query
+	// to retrieve the data needed for the chart.  We
+	// would create the query in a separate "Script Include"
+	// on the server, and call that method from here, to
+	// return the "data" in the format needed below.
+	//
+	// var scsi = new SomeChartScriptInclude();
+	// data.mySeriesData = scsi.getEmpCertSeriesData();
+	//
+	// For mockup purposes, we will hard code the "Series"
+	// data into a variable that we can access from the 
+	// client script:
+	
+	data.mySeriesData = [
+		{
+			name: 'Year To Date',
+			data: [90, 80, 65, 60],
+			color: data.chartColors[0] // Setting to use the first color
+		}, {
+			name: 'Year 2018',
+			data: [96, 100, 95, 80],
+			color: data.chartColors[1] // Setting to use the second color
+		}, {
+			name: 'Year 2017',
+			data: [80, 67, 67, 100],
+			color: data.chartColors[2]
+		}, {
+			name: 'Year 2016',
+			data: [91, 98, 48, 96],
+			color: data.chartColors[3]
+		}
+	];
+
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 19:27:54</sys_created_on>
+        <sys_id>63eb8df2dbca7b00d3d574608c961903</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>SSP-Completion-Bar-Chart</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_63eb8df2dbca7b00d3d574608c961903</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-10-31 18:33:15</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-primary panel-heading"> 
+    <h2 class="h4 panel-title ng-binding">Employee Certification Completion</h2> 
+  </div>
+  <div class="panel-body"> 
+    <div id="empCertBarDiv" style="min-width: 310px; max-width: 600px; height: 300px; margin: 0 auto"></div>   
+  </div>    
+</div>
+
+]]></template>
+    </sp_widget>
+</record_update>

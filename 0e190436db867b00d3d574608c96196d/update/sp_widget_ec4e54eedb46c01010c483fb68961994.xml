@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function() {
+  /* widget controller */
+  var c = this;
+
+var todayTimeStamp = new Date(); // Unix timestamp in milliseconds
+var oneDayTimeStamp = 1000 * 60 * 60 * 24; // Milliseconds in a day
+var diff = todayTimeStamp - oneDayTimeStamp;
+var yesterdayDate = new Date(diff);
+var yesterdayString = (yesterdayDate.getMonth() + 1) + '/' + yesterdayDate.getDate() + '/' + yesterdayDate.getFullYear();
+c.theDate = yesterdayString;
+	
+}
+
+
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.panels-container {
+	padding-left: 20px;
+ 	padding-right: 20px;
+ 	padding-bottom: 20px;
+}
+
+.header-metrics {
+	font-weight: bold;  
+}
+.barcolor {
+	background-color: #efefef;  
+}
+.barsummary {
+	background-color: #cccccc;  
+}
+/* Custom Widget Button */
+.ssp-btn-widget {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 1.6rem;
+	font-weight: 300;
+	color: #fff;
+}
+
+/* Secondary Color Buttons */
+/* Edit $color-ssp-secondary to customize button color */
+
+$color-ssp-secondary: $brand-secondary;
+$color-ssp-secondary-hover: darken(desaturate(adjust-hue($color-ssp-secondary, 1), 0.42%), 16.67);
+
+.color-ssp-secondary {
+	color: $light-text;
+	background-color: $color-ssp-secondary;
+	border-color: $color-ssp-secondary;
+}
+.color-ssp-secondary:focus, .color-ssp-secondary.focus {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:hover {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active:hover, .color-ssp-secondary:active:focus, .color-ssp-secondary.focus:active, .color-ssp-secondary.active:hover, .color-ssp-secondary.active:focus, .color-ssp-secondary.active.focus, .open &gt; .color-ssp-secondary.dropdown-toggle:hover, .open &gt; .color-ssp-secondary.dropdown-toggle:focus, .open &gt; .color-ssp-secondary.dropdown-toggle.focus {
+	color: $light-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	background-image: none;
+}</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>ssp_daily_call_metrics</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>SSP Daily Call Metrics</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+  var workgroups = [
+		
+    {"id":0, "title":"CSR Callback", "offered":"48","complete":"42","answered":"44","abandoned":"2","held":"12","waiting":"3","longest_waiting":"1:01","barcolor":"barcolor"},
+    {"id":1, "title":"CSR General", "offered":"436","complete":"376","answered":"376","abandoned":"13","held":"21","waiting":"0","longest_waiting":"5:21","barcolor":""},
+    {"id":2, "title":"EUS Callback", "offered":"288","complete":"275","answered":"278","abandoned":"5","held":"14","waiting":"0","longest_waiting":"2:12","barcolor":"barcolor"},
+    {"id":3, "title":"EUS Escalations", "offered":"72","complete":"72","answered":"72","abandoned":"6","held":"7","waiting":"32","longest_waiting":"2:14","barcolor":""},
+		{"id":4, "title":"EUS General", "offered":"120","complete":"85","answered":"90","abandoned":"5","held":"0","waiting":"5","longest_waiting":"1:37","barcolor":"barcolor"},
+		{"id":5, "title":"EUS MSApps", "offered":"24","complete":"24","answered":"24","abandoned":"0","held":"22","waiting":"8", "longest_waiting":"3:10","barcolor":""},
+		{"id":6, "title":"EUS Outlook", "offered":"96","complete":"96","answered":"96","abandoned":"0","held":"0","waiting":"11","longest_waiting":"2:02","barcolor":"barcolor"},
+		{"id":7, "title":"EUS Password", "offered":"192","complete":"175","answered":"182","abandoned":"7","held":"16","waiting":"41","longest_waiting":"6:23","barcolor":""},
+		{"id":8, "title":"FCR Password", "offered":"48","complete":"48","answered":"48","abandoned":"4","held":"0","waiting":"0","longest_waiting":"1:11","barcolor":"barcolor"},
+		{"id":9, "title":"EUS Projects", "offered":"24","complete":"24","answered":"24","abandoned":"10","held":"0","waiting":"0","longest_waiting":"4:45","barcolor":""},
+		{"id":10, "title":"EUS Status", "offered":"216","complete":"181","answered":"186","abandoned":"16","held":"0","waiting":"0","longest_waiting":"1:09","barcolor":"barcolor"},
+		{"id":11, "title":"EUS VPM", "offered":"79","complete":"71","answered":"71","abandoned":"8","held":"7","waiting":"9","longest_waiting":"3:12","barcolor":""},
+		{"id":12, "title":"TOTAL", "offered":"1567","complete":"1398","answered":"1491","abandoned":"76","held":"99","waiting":"109","longest_waiting":"2:48","barcolor":"barsummary"}		
+  ];
+
+  data.workgroups = workgroups;
+})();
+
+]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-02 17:41:03</sys_created_on>
+        <sys_id>ec4e54eedb46c01010c483fb68961994</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>SSP Daily Call Metrics</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_ec4e54eedb46c01010c483fb68961994</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-02 17:49:27</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-primary panel-heading"> 
+  <h2 class="h4 panel-title ng-binding"> Daily Call Metrics </h2> 
+ </div>
+   <div class="panel-body"> 
+    <div class="row"> 
+
+
+  <!-- Total Call Distribution Panel -->
+  <div ng-if="show_Totalcall" class="panels-container">
+       <widget id="ssp_sankey_diagram"></widget>   
+  </div>
+  <!-- Total Call Distribution Panel -->
+
+      
+  <!-- Total Answered Call Distribution Panel -->
+  <div ng-if="show_Totalanswered" class="panels-container">
+        <widget id="ssp_sankey_diagram_2"></widget>   
+   </div>
+  <!-- Total Call Distribution Panel -->      
+  
+      
+  <!-- Tabular Metrics -->
+  <div ng-if="show_Metrics" class="panels-container">
+ 
+ <div class="container-fluid">
+   <h2>Tabular Metrics : {{c.theDate}}</h2>
+   
+   <div class="row">
+		<div class="col-md-12"> 
+			<div class="row header-metrics barsummary">
+				<div class="col-md-3">
+          	Title
+				</div>
+				<div class="col-md-1">
+						Offered
+				</div>
+				<div class="col-md-1">
+						Complete
+				</div>
+				<div class="col-md-1">
+						Answered
+				</div>
+				<div class="col-md-1">
+						Abandoned
+				</div>
+				<div class="col-md-1">
+						Held
+				</div>
+				<div class="col-md-1">
+						Waiting
+				</div>
+				<div class="col-md-2">
+						Longest Waiting
+				</div>
+				<div class="col-md-1">
+				</div>
+			</div>    
+    
+ <div ng-repeat="workgroups in c.data.workgroups">
+
+ <!-- div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12" -->
+			<div class="row {{workgroups.barcolor}}">
+				<div class="col-md-3">
+          	{{workgroups.title}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.offered}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.complete}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.answered}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.abandoned}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.held}}
+				</div>
+				<div class="col-md-1">
+						{{workgroups.waiting}}
+				</div>
+				<div class="col-md-2">
+						{{workgroups.longest_waiting}}
+				</div>
+				<div class="col-md-1">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>       
+    
+    </div>     
+  </div>
+  <!-- Tabular Metrics -->   
+ 
+      
+  <!-- Control Buttons --> 
+		<div class="col-md-12">
+			<div class="row">
+
+    <div class="col-md-4">
+         <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="show_Totalcall = true; show_Metrics = false; show_Totalanswered = false;">
+          Total Call Distribution</a>  
+      </div>
+
+     <div class="col-md-4">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="show_Totalanswered = true; show_Metrics = false; show_Totalcall = false;">
+          Answered Call Distribution</a>  
+      </div>     
+  
+     <div class="col-md-4">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="show_Metrics = true; show_Totalcall = false; show_Totalanswered = false;">
+          Tabular Metrics</a>  
+      </div>      
+     
+       </div>  
+   </div>     
+  <!-- Control Buttons -->
+     
+     </div>
+    </div>    
+ 
+  </div>]]></template>
+    </sp_widget>
+</record_update>

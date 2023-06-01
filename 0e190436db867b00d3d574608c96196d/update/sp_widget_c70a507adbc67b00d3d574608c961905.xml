@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http, $scope, $rootScope, spUtil, $window) {
+  /* widget controller */
+  var c = this;
+	
+	// Event handlers for each of the above events
+	$scope.$on('sspHelpClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Help'!");
+		c.data.panelTitle = "Get Help From...";
+		c.data.currentMode = 0;
+	});
+
+	$scope.$on('sspServicesClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Services'!");
+		c.data.panelTitle = "Choose Products & Services From...";
+		c.data.currentMode = 1;
+	});
+	
+	$scope.$on('sspAnswersClick', function(event,data) { 
+		//spUtil.addTrivialMessage("I heard a click on 'Answers'!");
+		c.data.panelTitle = "Find Answers About...";
+		c.data.currentMode = 2;
+	});
+	
+	
+	// Functions that emit events
+	c.onCatClick = function(catIndex) {
+		c.data.currentCategory = catIndex;
+		var payload = {
+			"category" : c.data.svcCategories[catIndex],
+			"mode" : (c.data.currentMode >= 0) ? c.data.svcModes[c.data.currentMode] : ""
+		};
+		$rootScope.$broadcast('sspCategorySelect', payload);
+		console.log("Category selected:"+JSON.stringify(payload));
+	};
+	
+	c.launch = function() {
+		
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		
+		console.log(w + ":" + h);
+		
+		var calcx = w;
+		var calcy = h;
+		
+		console.log(calcx + ":" + calcy);
+		
+		window.open('https://saicprod.espressive.com/app/barista/?phrase=&submit=y', 'barista', 'height=736,width=460,top='+calcy+',left='+calcx+',location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
+	};
+	
+	
+	
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/* SSP HP MASTER */
+$light-text: #ffffff;
+$hover-text: #ffffff;
+
+.panel-heading-master {
+	min-height: 53px;
+	text-align: center; 
+	padding-top: 20px
+}
+
+.panel-body-master {
+	min-height: 285px !important;
+  padding: 15px;
+  padding-top: 20px;
+}
+
+/* Custom Widget Button */
+.ssp-btn-widget {
+	margin-top: 10px;
+	margin-bottom: 10px;
+	font-size: 2rem;
+	font-weight: 300;
+}
+
+.ssp-btn-widget-icon { 
+	float: left;
+	padding-right: 10px;
+	width: 40px;
+	position: relative;
+}
+
+.ssp-btn-txt { 
+ 	float: center;
+	position: relative;
+}
+
+/* Secondary Color Buttons */
+/* Edit $color-ssp-secondary to customize button color */
+
+$color-ssp-secondary: $brand-secondary;
+$color-ssp-secondary-hover: darken(desaturate(adjust-hue($color-ssp-secondary, 1), 0.42%), 16.67);
+
+.color-ssp-secondary {
+	color: $light-text;
+	background-color: $color-ssp-secondary;
+	border-color: $color-ssp-secondary;
+}
+.color-ssp-secondary:focus, .color-ssp-secondary.focus {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:hover {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	color: $hover-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active:hover, .color-ssp-secondary:active:focus, .color-ssp-secondary.focus:active, .color-ssp-secondary.active:hover, .color-ssp-secondary.active:focus, .color-ssp-secondary.active.focus, .open &gt; .color-ssp-secondary.dropdown-toggle:hover, .open &gt; .color-ssp-secondary.dropdown-toggle:focus, .open &gt; .color-ssp-secondary.dropdown-toggle.focus {
+	color: $light-text;
+	background-color: $color-ssp-secondary-hover;
+	border-color: $color-ssp-secondary-hover;
+}
+.color-ssp-secondary:active, .color-ssp-secondary.active, .open &gt; .color-ssp-secondary.dropdown-toggle {
+	background-image: none;
+}
+
+// green Button //
+.color-ssp-default {
+  color: $light-text;
+	background-color: #27bea8;
+	border-color: #27bea8;
+}
+.color-ssp-help:hover {
+	background-color: darken(desaturate(adjust-hue($brand-success, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue($brand-success, 1), 0.42%), 16.67);
+}
+
+// green Button //
+.color-ssp-help {
+	color: $light-text;
+	background-color: $color-ssp-green !important;
+	border-color: $color-ssp-green !important;
+}
+.color-ssp-help:focus, .color-ssp-green.focus {
+	color: $hover-text;
+	background-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67);
+}
+.color-ssp-help:hover {
+	color: $hover-text;
+	background-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67) !important;
+	border-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67)  !important;
+}
+.color-ssp-help:active, .color-ssp-green.active, .open &gt; .color-ssp-green.dropdown-toggle {
+	color: $hover-text;
+	background-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67);
+}
+.color-ssp-help:active:hover, .color-ssp-help:active:focus, .color-ssp-help.focus:active, .color-ssp-help.active:hover, .color-ssp-help.active:focus, .color-ssp-green.active.focus, .open &gt; .color-ssp-green.dropdown-toggle:hover, .open &gt; .color-ssp-green.dropdown-toggle:focus, .open &gt; .color-ssp-green.dropdown-toggle.focus {
+	color: $hover-text;
+	background-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67) !important;
+	border-color: darken(desaturate(adjust-hue($color-ssp-green, 1), 0.42%), 16.67)  !important;
+}
+
+
+/* END SSP HP MASTER */
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ssp_hp_master</id>
+        <internal>false</internal>
+        <link/>
+        <name>SSP HP Master</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	data.panelTitle = "Our Services";
+	data.svcCategories = [
+		"Finance",
+		"Human Resources",
+		"Technology",
+		"Facilities"
+	];
+	data.svcModes = [
+		"Help",
+		"Services",
+		"Answers"
+	];
+	data.currentCategory = -1;
+	data.currentMode = -1;
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 15:49:58</sys_created_on>
+        <sys_id>c70a507adbc67b00d3d574608c961905</sys_id>
+        <sys_mod_count>23</sys_mod_count>
+        <sys_name>SSP HP Master</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_c70a507adbc67b00d3d574608c961905</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-05-18 18:24:30</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default b">  
+  <div class="panel-heading panel-heading-master">
+    <h2 class="panel-title ssp-custom-widget-header">{{c.data.panelTitle}}</h2>
+  </div>  
+  <div class="panel-body-master">  
+
+    <div class="col-sm-6">
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(0)">
+          <i class="fa fa-money fa-stack-1x fa-inverse ssp-btn-widget-icon"></i> Finance</a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(1)">
+          <i class="fa fa-child fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>
+          <div class="ssp-btn-txt">Human Resources</div></a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(2)">
+          <i class="fa fa-laptop fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>Technology</a>  
+      </div>
+      <div class="ssp-button">
+        <a class="btn ssp-btn-widget color-ssp-secondary btn-block ng-binding" role="button" ng-click="c.onCatClick(3)">
+          <i class="fa fa-lightbulb-o fa-stack-1x fa-inverse ssp-btn-widget-icon"></i>Facilities</a>  
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div ng-if="c.data.currentCategory < 0">
+        <h3 style="text-align: center;">
+          Select a service area for answers and support options.
+        </h3>
+      </div>
+      <div ng-if="c.data.currentCategory >= 0">
+        <span style="font-size: 125%; text-align: center;"><strong>{{c.data.svcCategories[c.data.currentCategory]}} Support</strong></span>
+        <div>
+          <div ng-if="c.data.currentCategory == 2">
+            Virtual Agent assistance is <strong>available 24x7</strong>:
+            <div class="ssp-button">
+              <a class="btn btn-block ssp-btn-widget color-ssp-default ng-binding" role="button" ng-click="c.launch()">
+                 <img src="baristalogo1.png" width="30" height="25" style="float: left;"/>Chat Now</a>
+            </div>
+          </div>
+          Telephone support available weekdays from 6:30am until 7:00pm (Eastern):
+          <ul>
+            <li><a href="/upssp?id=sc_cat_item&sys_id=3f1dd0320a0a0b99000a53f7604a2ef9&sysparm_category=e15706fc0a0a0aa7007fc21e1ab70c2f"><b>Report an Issue</b></a></li>
+            <li>Telephone: <strong>1 (800) 555-1212</strong></li>
+            <li>Call Me on: <input type="text" placeholder="Mobile: 360-555-2387"></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>     
+</div>]]></template>
+    </sp_widget>
+</record_update>

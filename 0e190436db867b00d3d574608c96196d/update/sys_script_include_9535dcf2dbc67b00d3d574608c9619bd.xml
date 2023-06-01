@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saic4_persona_ss.SSPChartUtils</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utilities for producing chart widgets.</description>
+        <name>SSPChartUtils</name>
+        <script><![CDATA[var SSPChartUtils = Class.create();
+SSPChartUtils.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+	getPaletteByName: function(palName) {
+		var judgeLong = [
+			"#FE2712", // Red
+			"#FB9902", // Orange
+			"#FEFE33", // Yellow
+			"#FD5307", // Red-Orange
+			"#FABC01", // Yellow-Orange
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#006600", // Dark-Green
+			"#0147FE"  // Blue
+		];
+
+		var judgeShort = [
+			"#FE2712", // Red
+			"#FEFE33", // Yellow
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#0147FE"  // Blue
+		];
+
+		var allBad = [
+			"#FE2712", // Red
+			"#d16f66", // Pale Red
+			"#e3d12b", // Yellow
+			"#fcf081", // Pale Yellow
+			"#c9f7ff", // Pale Cyan
+		];
+
+		
+		var catShort = [
+			"#176d98", // Blue
+			"#a34efe", // Purple
+			"#C1687E", // Red
+			"#46999d", // Green
+			"#ffb347", // Orange
+			"#efef66", // Yellow
+		];
+		
+		var catLong = [
+			"#2f1847", // Purple
+			"#624763", // Dark Rose
+			"#C62e65", // Redish
+			"#c985a2", // Pale pink
+			"#62ab37", // Green
+			"#8dc2a8", // Mint
+			"#7b6d8d", // Pale Purple
+			"#75889e", // Pale Blue
+			"#2c423f", // Hunter Green
+		];
+		
+		
+		if (palName == 'judgeLong') {
+			return judgeLong;
+		} else if (palName == 'judgeShort') {
+			return judgeShort;
+		} else if (palName == 'allBad') {
+			return allBad;
+		} else if (palName == 'catLong') {
+			return catLong;			
+		} else {
+			return catShort;
+		}
+	},
+	
+	getJudgementPalette: function() {
+	
+		var judgeMe = [
+			"#FE2712", // Red
+			"#FB9902", // Orange
+			"#FEFE33", // Yellow
+			"#FD5307", // Red-Orange
+			"#FABC01", // Yellow-Orange
+			"#D0EA2B", // Yellow-Green
+			"#66B032", // Green
+			"#006600", // Dark-Green
+			"#0147FE"  // Blue
+		];
+		
+		return judgeMe;
+	},
+
+	getCategoryPalette: function() {
+	
+		var catMe = [
+			"#176d98", // Blue
+			"#a34efe", // Purple
+			"#C1687E", // Red
+			"#46999d", // Green
+			"#ffb347", // Orange
+			"#efef66", // Yellow
+		];
+		
+		return catMe;
+	},
+
+	// Provides data series for a pie chart from the incident table
+	// based on aggregate field and filter
+	incidentPie: function(aggField, aggFilter) {
+		var gra = new GlideAggregate('incident');
+		gra.addEncodedQuery(aggFilter);
+
+		gra.groupBy(aggField);
+		gra.addAggregate('COUNT');
+		gra.orderBy('COUNT');
+		gra.query();
+
+		var chartData = [];
+		var gaVal = 0;
+
+		while(gra.next()) {
+			gaVal = parseInt(gra.getAggregate('COUNT'));
+			if (!gaVal) continue;
+			chartData.push({
+				"name": gra.getDisplayValue(aggField),
+				"y": gaVal
+			});
+		}
+		return chartData;
+	},
+	
+	// Method retrieves aggregate incident
+	// creation counts, grouped by contact type
+	// aggregated by week, for past 90 days
+	incidentsByContactType: function() {
+		var au = new global.ArrayUtil();
+		
+		var ga = new GlideAggregate('incident');
+		// ga.addEncodedQuery("category!=^sys_created_onRELATIVEGE@dayofweek@ago@90");
+		ga.addTrend('sys_created_on', 'Week'); 
+		ga.addAggregate('COUNT'); 
+		ga.groupBy('contact_type');
+		ga.orderBy('timeref');
+		ga.query();
+		
+		
+		var sRez = [];
+		var tRez = {};
+		var cTypes = [];
+		var weeks = [];
+		
+		var ct, we, cn; 
+		while (ga.next()) {
+			ct = ga.getDisplayValue('contact_type');
+			we = parseInt(ga.getValue('timeref').split("/")[0]);
+			cn = parseInt(ga.getAggregate('COUNT'));
+			
+			if (!au.contains(cTypes, ct)) cTypes.push(ct);
+			if (!au.contains(weeks, we)) weeks.push(we);
+			
+			sRez.push({
+				"cType": ct,
+				"week": we,
+				"conCnt": cn
+			});		
+		}
+		
+		weeks.sort(function(a, b){return a - b;});
+		
+		var x, l = weeks.length;
+		tRez['serCats'] = [];
+		for (x = 0; x < l; x++) {
+			tRez.serCats.push("Week: "+weeks[x]);
+		}
+		
+		l = cTypes.length;
+		tRez['serDat'] = [];
+		for (x = 0; x < l; x++) {
+			tRez.serDat.push({
+				"name"  : cTypes[x],
+				"data"  : this._populateArrayForType(sRez, weeks, cTypes[x]),
+				"color" : this.getCategoryPalette()[x]
+			});
+		}
+		
+		return tRez;
+	},
+	
+	_populateArrayForType: function(full, weeks, type) {
+		var x, y, l, wl;
+		l = full.length;
+		wl = weeks.length;
+		var datArr = [];
+		
+		for (x = 0; x < wl; x++) {
+			datArr.push(this._findCntByTypeWeek(full, "cType", type, "week", weeks[x]));
+		}
+		return datArr;
+	},
+	
+	_findCntByTypeWeek: function (array, key1, val1, key2, val2) {
+		for (var i = 0; i < array.length; i++) {
+			if (array[i][key1] === val1 && array[i][key2] === val2) {
+				return array[i].conCnt;
+			}
+		}
+		return 0;
+	},
+	
+    type: 'SSPChartUtils'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 15:29:43</sys_created_on>
+        <sys_id>9535dcf2dbc67b00d3d574608c9619bd</sys_id>
+        <sys_mod_count>14</sys_mod_count>
+        <sys_name>SSPChartUtils</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sys_script_include_9535dcf2dbc67b00d3d574608c9619bd</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-02 17:16:23</sys_updated_on>
+    </sys_script_include>
+</record_update>

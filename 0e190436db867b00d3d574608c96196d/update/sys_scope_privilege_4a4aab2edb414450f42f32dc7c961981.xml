@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_scope_privilege">
+    <sys_scope_privilege action="INSERT_OR_UPDATE">
+        <operation>read</operation>
+        <source_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</source_scope>
+        <status>allowed</status>
+        <sys_class_name>sys_scope_privilege</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-11-14 15:29:38</sys_created_on>
+        <sys_id>4a4aab2edb414450f42f32dc7c961981</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>kb_use</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sys_scope_privilege_4a4aab2edb414450f42f32dc7c961981</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-11-14 15:29:38</sys_updated_on>
+        <target_name>kb_use</target_name>
+        <target_scope display_value="Global">global</target_scope>
+        <target_type>sys_db_object</target_type>
+    </sys_scope_privilege>
+</record_update>

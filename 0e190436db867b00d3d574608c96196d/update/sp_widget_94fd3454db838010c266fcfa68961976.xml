@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, spUtil) {
+
+	var c = this;
+
+	_createChart();
+
+
+	function _createChart() {
+
+		c.myChart = new Highcharts.Chart({
+
+			// This is were we set the configuration
+			// parameters that are unique to each
+			// type of chart
+			chart: {
+				type: 'gauge', // What Chart Type
+				renderTo: 'assignTimeGauge', // The DIV ID to render it into
+				height: 200
+			},
+
+			title: {
+				text: 'P1 SLA - Avg. Assign Time'
+			},
+
+			pane: [{
+				startAngle: -45,
+				endAngle: 45,
+				background: null,
+				center: ['50%', '110%'],
+				size: 270
+			}],
+
+			tooltip: {
+				enabled: false
+			},
+			exporting: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+
+			yAxis: [{
+				min: 0,
+				max: 60,
+				minorTickPosition: 'outside',
+				tickPosition: 'outside',
+				labels: {
+					rotation: 'auto',
+					distance: 10
+				},
+
+				plotBands: [
+					{
+						from: 0,
+						to: 20,
+						color: '#55BF3B' // green
+					}, {
+						from: 21,
+						to: 40,
+						color: '#DDDF0D' // yellow
+					}, {
+						from: 41,
+						to: 60,
+						color: '#DF5353' // red
+					}
+				],		
+
+				XplotBands: [{
+					from: 85,
+					to: 100,
+					color: '#C02316',
+					innerRadius: '90%',
+					outerRadius: '95%'
+				}],
+				pane: 0,
+				title: {
+					text: 'Min. to Assign',
+					y: -30
+				}
+			}],
+
+			plotOptions: {
+				gauge: {
+					dataLabels: {
+						enabled: false
+					},
+					dial: {
+						radius: '100%'
+					}
+				}
+			},
+			series: c.data.mySeriesData // Set the series data from server script					
+		});
+		
+	} // END - _createChart()
+
+} // END - Client Script]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.countIndicate {
+    margin: 3px;
+  	background-color: #FFFFFF;
+	  border-style: solid;
+    border-width: 3px;
+    border-color: #dddddd;
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ssp_sla_assignment</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>ssp_sla_assignment</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	// Get an array of colors to use for the bars
+	var spc = new SSPChartUtils();
+	data.chartColors = spc.getCategoryPalette();
+	
+	// Normally, here's where we would create a query
+	// to retrieve the data needed for the chart.  We
+	// would create the query in a separate "Script Include"
+	// on the server, and call that method from here, to
+	// return the "data" in the format needed below.
+	//
+	// var scsi = new SomeChartScriptInclude();
+	// data.mySeriesData = scsi.getEmpCertSeriesData();
+	//
+	// For mockup purposes, we will hard code the "Series"
+	// data into a variable that we can access from the 
+	// client script:
+	
+	data.mySeriesData = [
+		{
+	//		name: 'Year To Date',
+	//		data: [90, 80, 65, 60],
+	//		color: data.chartColors[0] // Setting to use the first color
+        name: 'Volume',
+				data: [22]
+		}
+	];
+
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-02-14 13:15:56</sys_created_on>
+        <sys_id>94fd3454db838010c266fcfa68961976</sys_id>
+        <sys_mod_count>4</sys_mod_count>
+        <sys_name>ssp_sla_assignment</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_94fd3454db838010c266fcfa68961976</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-02-14 13:33:27</sys_updated_on>
+        <template><![CDATA[<div class='countIndicate' style="text-align:center;">
+  <div id="assignTimeGauge" style="height:220px;" ></div>
+</div>]]></template>
+    </sp_widget>
+</record_update>

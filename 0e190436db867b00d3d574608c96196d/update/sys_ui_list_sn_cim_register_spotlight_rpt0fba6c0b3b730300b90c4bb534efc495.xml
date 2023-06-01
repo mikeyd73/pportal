@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update>
+    <sys_ui_list parent="" relationship="" sys_domain="global" table="sn_cim_register_spotlight" version="2" view="RPT0fba6c0b3b730300b90c4bb534efc495">
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_number</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>0</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>8e9ced14dbef0890c266fcfa68961971</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_short_description</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>1</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>829ced14dbef0890c266fcfa68961972</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_assigned_to</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>2</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>869ced14dbef0890c266fcfa68961972</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_priority</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>3</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>8a9ced14dbef0890c266fcfa68961972</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_state</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>4</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>8e9ced14dbef0890c266fcfa68961972</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_benefit</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>5</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>829ced14dbef0890c266fcfa68961973</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_cim_estimate</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>6</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>869ced14dbef0890c266fcfa68961973</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>sn_due_date</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>7</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>8a9ced14dbef0890c266fcfa68961973</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list_element action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element>spotlight_score</element>
+            <list_id display_value="sn_cim_register_spotlight" element="NULL" name="sn_cim_register_spotlight" parent="NULL" relationship="NULL" sys_domain="global" view="8a9ced14dbef0890c266fcfa68961970">c69ced14dbef0890c266fcfa68961971</list_id>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <position>8</position>
+            <sum>false</sum>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_id>8e9ced14dbef0890c266fcfa68961973</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+        </sys_ui_list_element>
+        <sys_ui_list action="INSERT_OR_UPDATE">
+            <average_value>false</average_value>
+            <element/>
+            <max_value>false</max_value>
+            <min_value>false</min_value>
+            <name>sn_cim_register_spotlight</name>
+            <parent/>
+            <position/>
+            <relationship/>
+            <sum>false</sum>
+            <sys_class_name>sys_ui_list</sys_class_name>
+            <sys_created_by>adminbleicherd</sys_created_by>
+            <sys_created_on>2020-03-10 13:11:09</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c69ced14dbef0890c266fcfa68961971</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>sn_cim_register_spotlight</sys_name>
+            <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+            <sys_update_name>sys_ui_list_sn_cim_register_spotlight_RPT0fba6c0b3b730300b90c4bb534efc495</sys_update_name>
+            <sys_updated_by>adminbleicherd</sys_updated_by>
+            <sys_updated_on>2020-03-10 13:11:09</sys_updated_on>
+            <sys_user/>
+            <view display_value="Rpt0fba6c0b3b730300b90c4bb534efc495" name="RPT0fba6c0b3b730300b90c4bb534efc495">8a9ced14dbef0890c266fcfa68961970</view>
+            <view_name/>
+        </sys_ui_list>
+    </sys_ui_list>
+</record_update>

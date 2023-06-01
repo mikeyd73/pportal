@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http) {
+	/* widget controller */
+	var c = this;
+	
+	// Set default justPop value to Answers
+	c.justPop = 'Answers';
+
+	// Replace hard coded DIV id with dynamic one
+	document.getElementById('replaceMeInClientScript')
+		.setAttribute("id", c.data.mcdid);	
+
+	// Create the chart object without
+	// data, enable the "Loading" indicator.
+	c.myChart = {};
+	_createChart();
+	c.myChart.showLoading();
+	
+
+
+	// Make call to appropriate API to get
+	// data. Update chart and disable 
+	// "Loading" indicator when data is returned
+	$http.get('/api/x_saic4_persona_ss/client_utils/getArticlesByCat?justPop='+c.justPop)
+		.then(function(res) {
+		c.data.chartData = res.data.result;
+		c.myChart.series[0].setData(c.data.chartData);
+		c.myChart.hideLoading();
+	});	
+
+		// Functions that emit events
+	c.onFiltChange = function(justPop) {
+		c.justPop = justPop;
+		c.myChart.showLoading();
+		$http.get('/api/x_saic4_persona_ss/client_utils/getArticlesByCat?justPop='+c.justPop)
+			.then(function(res) {
+			c.data.chartData = res.data.result;
+			c.myChart.series[0].setData(c.data.chartData);
+			c.myChart.series[0].name = justPop;
+			c.myChart.hideLoading();
+		});	
+
+	};
+	
+	
+
+	// Function to create and render the
+	// chart object.
+	function _createChart() {
+
+		c.myChart = new Highcharts.Chart({
+			chart: {
+				type: 'wordcloud',
+				renderTo: c.data.mcdid
+			},
+			title: {
+				text: null,
+				enabled: false
+			},
+			exporting: {
+				enabled: false
+			},
+			credits: {
+				enabled: false
+			},
+			loading: {
+				hideDuration: 1000,
+				showDuration: 1000
+			},
+			plotOptions: {
+				series: {
+					cursor: 'pointer',
+					animation: {
+						duration: 2000
+					},
+					point: {
+						events: {
+							click: function () {
+								if (c.justPop == "Searches") {
+									location.href = '/upssp?id=kb_search&spa=1&query='+this.options.name;
+								} else {
+									location.href = '/upssp?id=kb_search&kb_knowledge_base=3b65e7e1dbed7f40f42f32dc7c9619c1&spa=1&kb_category=' +
+									this.options.katSys;
+								}
+							}
+						}
+					}
+				}
+			},
+			series: [{
+				name: c.justPop,
+				colors: c.data.chartColors,
+				data: c.data.chartData,
+				rotation: {
+					from: 0,
+					to: 0,
+					orientations: 5
+				}
+
+			}]
+		});	
+	}
+
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ssp_kbwordcloud</id>
+        <internal>false</internal>
+        <link/>
+        <name>SSPKBWordCloud</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	// Get a unique id for the chart's
+	// containing DIV.
+	data.mcdid = gs.generateGUID();
+	
+	var spc = new SSPChartUtils();
+	data.chartColors = spc.getPaletteByName("catLong");
+	
+	data.chartData = [];
+	
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-10-31 17:33:17</sys_created_on>
+        <sys_id>a05004dadb30cc50f42f32dc7c96192f</sys_id>
+        <sys_mod_count>65</sys_mod_count>
+        <sys_name>SSPKBWordCloud</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_a05004dadb30cc50f42f32dc7c96192f</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-11-14 16:09:26</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default">
+  <div class="panel-primary panel-heading"> 
+    <h2 class="h4 panel-title ng-binding">We Have Answers: 
+      <span ng-click="c.onFiltChange('Answers')" class="link"><u>Software</u></span> ||
+      <span ng-click="c.onFiltChange('Views')" class="link"><u>Popular</u></span> ||
+      <span ng-click="c.onFiltChange('Searches')" class="link"><u>Searches</u></span>
+    </h2> 
+  </div>
+  <div class="panel-body">
+   <div id="replaceMeInClientScript" style="height:340px; width:100%;" ></div>
+  </div>    
+</div>
+
+
+
+]]></template>
+    </sp_widget>
+</record_update>

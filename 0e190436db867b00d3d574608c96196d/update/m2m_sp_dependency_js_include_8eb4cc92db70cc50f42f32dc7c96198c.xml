@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_dependency_js_include">
+    <m2m_sp_dependency_js_include action="INSERT_OR_UPDATE">
+        <order>200</order>
+        <sp_dependency display_value="HighCharts WordCloud 721">5f344892db70cc50f42f32dc7c961926</sp_dependency>
+        <sp_js_include display_value="https://code.highcharts.com/modules/wordcloud.js">4b740c92db70cc50f42f32dc7c96198d</sp_js_include>
+        <sys_class_name>m2m_sp_dependency_js_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-10-31 17:52:30</sys_created_on>
+        <sys_id>8eb4cc92db70cc50f42f32dc7c96198c</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>HighCharts WordCloud 721.https://code.highcharts.com/7.2.1/modules/wordcloud.js</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>m2m_sp_dependency_js_include_8eb4cc92db70cc50f42f32dc7c96198c</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-10-31 18:06:40</sys_updated_on>
+    </m2m_sp_dependency_js_include>
+</record_update>

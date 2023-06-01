@@ -1,0 +1,643 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope, $http, $window, spUtil) {
+  /* widget controller */
+  var c = this;
+	
+	c.currentPreview = {};
+	
+	c.updateTemp = function() {
+		var myNewTemp = c.data.selectedTemplate.title;
+		
+		if (myNewTemp == "Power User") {
+			c.data.myTemplate = "sspPowerUserTemplate";
+		} else if (myNewTemp == "Max User") {
+			c.data.myTemplate = "sspMaxUserTemplate";
+		} else if (myNewTemp == "Moderate") {
+			c.data.myTemplate = "sspModerateTemplate";
+		} else if (myNewTemp == "Alt Simple") {
+			c.data.myTemplate = "sspAltSimpleTemplate";
+		} else {
+			c.data.myTemplate = "sspSimpleTemplate";
+		}
+		
+		// Set the preferred homepage for this user on backend
+		$http.get('/api/x_saic4_persona_ss/client_utils/setPreferredTemplate?prefHome='+myNewTemp)
+			.then(function(res) {
+			console.log("updateTemp did get called with: "+myNewTemp);
+		 });	
+				
+	}
+	
+	c.removeWidgetAtIndex = function(index) {
+		c.data.model.splice(index, 1);
+		console.log("Tried to remove item at index: "+index);
+	};
+	
+
+	c.previewItem = function(item) {		
+		
+		var wi, widget = {};
+		c.data.widgets = [];
+		
+		if (item.dSize == 'Small') {
+			wi = c.data.wds[item.dX];
+		} else if (item.dSize == 'Medium') {
+			wi = c.data.wdm[item.dX];
+		} else if (item.dSize == 'Large') {
+			wi = c.data.wdl[item.dX];
+		}
+		
+		widget.currentWidget = wi;
+		// console.log("Previewing: "+JSON.stringify(wi));
+		c.data.widgets.push(widget);
+		c.currentPreview = item;
+		
+		/**  No longer needed
+		spUtil.get(item.id, item.options).then(function(response) {
+			widget.currentWidget = response;
+			c.data.widgets.push(widget);
+			c.currentPreview = item;
+		});		
+		**/
+	};
+
+	c.addPreviewedItem = function() {
+		c.data.model.push(c.currentPreview);
+		// console.log("Adding to array: "+item.toString());
+	};
+	
+	
+	c.addItem = function(item) {
+		c.data.model.push(item);
+		// console.log("Adding to array: "+item.toString());
+	};
+
+	// Save preferences and redirect back to homepate
+	c.sendItAll = function() {
+		// Set the preferred widgets for this user on backend
+		var payload = {"widgetList" : c.data.model};
+		$http.post('/api/x_saic4_persona_ss/client_utils/setWidgetList', payload)
+			.then(function(res) {
+			console.log("Updated Widget List with: "+JSON.stringify(c.data.model));
+			$window.location.href = '/upssp';
+		});
+	};
+	
+	// ng-change="c.addItem(c.data.availableMod)"
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>/**
+ * Widget list and template layout colors
+ */
+.Small {
+   	background-color: #8ec4df !important;
+}
+.Medium {
+    background-color: #ffc26b !important;
+}
+.Large {
+    background-color: #c794fe !important;
+}
+
+/**
+ * The dnd-list should  always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.simpleDemo ul[dnd-list] {
+    min-height: 42px;
+    padding-left: 0px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.simpleDemo ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.simpleDemo ul[dnd-list] .dndPlaceholder {
+    background-color: #ddd;
+    display: block;
+    min-height: 42px;
+}
+
+.widgetSelect {
+	width: 100%; 
+ 	max-width: 100%;
+}
+
+#widgetList li {
+  	background-color: #efefef;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    display: inline-block;
+    padding: 10px 15px;
+  	width: 100%;
+    box-shadow: 1px 1px 2px 1px rgba(0,0,0,0.35);
+}
+ul li: onfocus {
+  color: #cccccc;
+}
+
+/**
+ * Adjust widget list items
+ */
+
+ul, menu, dir {
+     padding-inline-start: 0px;
+}
+
+.fa {
+  	border: 0px;
+  	padding: 0px;
+}
+
+/** Shrink widget text  */
+@media screen and (max-width: 767px) {
+.as-sortable-item-handle {
+		font-size: 12px;
+} 
+}
+
+/**
+ * Sample layout styles
+ */
+
+.layout-main {
+	border: 2px solid #808080;
+	text-align: center;
+ 	white-space: nowrap;
+  overflow: hidden;
+  margin-bottom: 5px;
+}
+.layout-div {
+  min-height: 15px;
+  border: 1px solid #808080;
+}
+.static {
+	background-color: $brand-primary;
+  border: 1px solid #808080;
+  color: #ffffff;
+  padding: 5px
+}
+.widget {
+	background-color: #FBF9F9;
+	border: 1px solid #808080;
+  padding: 5px
+}
+.half {
+ 	width: 50%;
+  display: inline-block;
+}
+.third {
+	width: 33%;
+  display: inline-block;
+}
+.quarter {
+ 	width: 25%;
+  display: inline-block;
+}
+.centerme {
+	text-align: center;
+} 
+
+// Submit Button //
+.color-ssp-green {
+	color: #ffffff;
+	background-color: #328e93;
+	border-color: #328e93;
+}
+.color-ssp-green:focus, .color-ssp-green.focus {
+	color: #ffffff;
+	background-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+}
+.color-ssp-green:hover {
+	color: #ffffff;
+	background-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+}
+.color-ssp-green:active, .color-ssp-green.active, .open &gt; .color-ssp-green.dropdown-toggle {
+	color: #ffffff;
+	background-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+}
+.color-ssp-green:active:hover, .color-ssp-green:active:focus, .color-ssp-green.focus:active, .color-ssp-green.active:hover, .color-ssp-green.active:focus, .color-ssp-green.active.focus, .open &gt; .color-ssp-green.dropdown-toggle:hover, .open &gt; .color-ssp-green.dropdown-toggle:focus, .open &gt; .color-ssp-green.dropdown-toggle.focus {
+	color: #ffffff;
+	background-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+	border-color: darken(desaturate(adjust-hue(#328e93, 1), 0.42%), 16.67);
+}
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>ssp_customizer</id>
+        <internal>false</internal>
+        <link/>
+        <name>SSP Customizer</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function($scope, spUtil) {
+	/* populate the 'data' object */
+	/* e.g., data.table = $sp.getValue('table'); */
+
+
+	// Get a reference to the SSPMegaUtil
+	// utility library;
+	var mu = new SSPMegaUtil();
+
+	// Get available templates
+	data.templates = mu.getTemplateListing();
+
+	// Determine if user has a preferred homepage template
+	// or provide the default one
+	data.ssphPref = gs.getUser().getPreference('ssp_preferred_homepage');
+	if (!data.ssphPref) {
+		data.ssphPref = "Simple";
+		gs.getUser().savePreference("ssp_preferred_homepage", data.ssphPref);
+	}
+
+	// Set the current template
+	var ctIdx = mu.getTemplateIndexFromTitle(data.ssphPref, data.templates);
+	data.myTemplate = data.templates[ctIdx].tpName;
+	data.selectedTemplate = data.templates[ctIdx];
+
+	// Get user-specific stuff
+	// TODO:  move to widgets that actually use this
+	data.userFirst = gs.getUser().getFirstName();
+	data.userTimeZone = gs.getSession().getTimeZoneName();
+	
+	// Get lists of available widgets
+	data.smallWidgets = mu.getAvailWidgetsBySize("small");
+	data.mediumWidgets = mu.getAvailWidgetsBySize("medium");
+	data.largeWidgets = mu.getAvailWidgetsBySize("large");
+
+	// Load the widget models for all
+	// widgets in the lists.  This is required
+	// to allow preview of widgets with multiple
+	// instances
+	data.wds = [];
+	data.wdm = [];
+	data.wdl = [];
+	
+	var x, l = data.smallWidgets.length;
+	for (x = 0; x < l; x++) {
+			data.wds.push(
+				$sp.getWidget(data.smallWidgets[x].id, data.smallWidgets[x].options)
+			);		
+	}
+	
+	l = data.mediumWidgets.length;
+	for (x = 0; x < l; x++) {
+			data.wdm.push(
+				$sp.getWidget(data.mediumWidgets[x].id, data.mediumWidgets[x].options)
+			);		
+	}
+
+	l = data.largeWidgets.length;
+	for (x = 0; x < l; x++) {
+			data.wdl.push(
+				$sp.getWidget(data.largeWidgets[x].id, data.largeWidgets[x].options)
+			);		
+	}
+	
+	// Load the user's current widget list 
+	// data models
+	var userWidgetList = gs.getUser().getPreference('ssp_preferred_widgetlist');
+	if (userWidgetList) {
+		data.model = JSON.parse(userWidgetList);
+	} else {
+		data.model = [];
+	}
+
+	data.modOpts = [];
+
+	data.models = {
+		selected: null,
+		lists: {"Available Widgets": [], "In your portal": data.model}
+	};
+
+
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 18:01:34</sys_created_on>
+        <sys_id>be28f4bedb4a7b00d3d574608c961937</sys_id>
+        <sys_mod_count>38</sys_mod_count>
+        <sys_name>SSP Customizer</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_be28f4bedb4a7b00d3d574608c961937</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-09-13 17:03:28</sys_updated_on>
+        <template><![CDATA[<div>
+  <div class="simpleDemo row">
+    
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Available Widgets - Select from the list to preview or add to your portal</h3>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-4">
+              <p><strong>Small Widgets</strong></p>
+              <select size="8" ng-model="c.data.availableSmall" ng-options="item.options.title for item in c.data.smallWidgets" ng-change="c.previewItem(c.data.availableSmall)" class="widgetSelect Small"></select>
+            </div>
+            <div class="col-sm-4">
+              <p><strong>Medium Widgets</strong></p>
+              <select size="8" ng-model="c.data.availableMedium" ng-options="item.options.title for item in c.data.mediumWidgets" ng-change="c.previewItem(c.data.availableMedium)"  class="widgetSelect Medium"></select>
+            </div>
+            <div class="col-sm-4">
+              <p><strong>Large Widgets</strong></p>
+              <select size="8" ng-model="c.data.availableLarge" ng-options="item.options.title for item in c.data.largeWidgets" ng-change="c.previewItem(c.data.availableLarge)"  class="widgetSelect Large"></select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Widget Preview</h3>
+        </div>
+        <div class="panel-body">
+          <div id="myPrevDiv" style="min-height:200px; width:100%;" ng-repeat="i in c.data.widgets">
+
+            <sp-widget ng-if="i.currentWidget" widget="i.currentWidget"></sp-widget>
+
+          </div>
+          <span class="btn btn-primary" style="float: right;" ng-click="c.addPreviewedItem()">Add to Portal Widget List  <i class="fa fa-arrow-right"></i></span>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="col-md-3">
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Your Portal Widgets - Drag to reorder</h3>
+        </div>
+        <div class="panel-body" id="widgetList">
+          <ul data-as-sortable data-ng-model="c.data.model" style="list-style-type: none;">
+            <li ng-repeat="item in c.data.model" data-as-sortable-item class="simpleDemo {{item.dSize}}" style="list-style-type: none;">
+              <div data-as-sortable-item-handle>
+               <div style="float:left; max-width: 90%;">
+                 <i class="fa fa-th"></i>&nbsp;&nbsp;
+                 {{$index}} -- {{item.options.title}}
+                </div>
+                <div style="float:right;">
+                <span class="fa fa-times" ng-click="c.removeWidgetAtIndex($index)"></span>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="col-md-3">   
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">My Current Template</h3>
+        </div>
+        <div class="panel-body">
+          <div style="text-align: center;">
+            <strong>Your current template is: <select ng-model="c.data.selectedTemplate" ng-options="x.title for x in c.data.templates track by x.title" ng-change="c.updateTemp()"></select></strong>
+          </div>
+          <div style="text-align: center;">
+            <span style="centerme">
+							<p>
+                &nbsp;
+              </p>
+              <p>Visual Representation of "{{c.data.selectedTemplate.title}}" template.</p></span>
+
+            <!-- Sample Layout Styles, check template -->
+
+            <span ng-if="c.data.myTemplate == 'sspSimpleTemplate'">
+
+              <div class="layout-main">
+                <div class="static full">
+                  Search Bar
+                </div>
+                <div class="static half">
+                  Services
+                </div>
+                <div class="static half">
+                  Quick Links
+                </div>
+              </div>
+
+              <p>Additional widgets cannot be added to this layout.</p>  
+
+            </span>            
+
+            <span ng-if="c.data.myTemplate == 'sspAltSimpleTemplate'">
+
+              <div class="layout-main">
+                <div class="static full">
+                  Search Bar
+                </div>
+                <div class="static half">
+                  Services
+                </div>
+                <div class="static half">
+                  Quick Links
+                </div>
+              </div>
+
+              <span style="centerme">
+                <p>Additional widgets cannot be added to this layout.</p>
+              </span>  
+
+            </span>                       
+
+            <span ng-if="c.data.myTemplate == 'sspModerateTemplate'">
+
+              <div class="layout-main">
+                <div class="static full">
+                  Search Bar
+                </div>
+                <div class="static half">
+                  Services
+                </div>
+                <div class="static half">
+                  Quick Links
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    0
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    1
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    2
+                  </div>
+                </div>
+              </div>
+
+              <span style="centerme">
+                <p>Box numbers correspond to the Portal Widget positions.</p>
+              </span>  
+
+            </span>
+
+            <span ng-if="c.data.myTemplate == 'sspPowerUserTemplate'">
+
+              <div class="layout-main">
+                <div class="static full">
+                  Search Bar
+                </div>
+                <div class="widget half Large" title="Large Widget Area">
+                  0
+                </div>
+                <div class="widget half Large" title="Large Widget Area">
+                  1
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                   2
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    3
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    4
+                  </div>
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    5
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    6
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    7
+                  </div>
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    8
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    9
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    10
+                  </div>
+                </div>  
+
+              </div>
+
+              <span style="centerme">
+                <p>Box numbers correspond to the Portal Widget positions.</p>
+              </span>  
+
+            </span> 
+
+            <span ng-if="c.data.myTemplate == 'sspMaxUserTemplate'">
+
+              <div class="layout-main">
+                <div class="static full">
+                  Search Bar
+                </div>
+                <div>
+                  <div class="widget quarter Small" title="Small Widget Area">
+                    0
+                  </div>
+                  <div class="widget quarter Small" title="Small Widget Area">
+                    1
+                  </div>
+                  <div class="widget quarter Small" title="Small Widget Area">
+                    2
+                  </div>
+                  <div class="widget quarter Small" title="Small Widget Area">
+                    3
+                  </div>
+                </div>  
+
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    4
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    5
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    6
+                  </div>
+                </div> 
+                <div class="widget half Large" title="Large Widget Area">
+                  7
+                </div>
+                <div class="widget half Large" title="Large Widget Area">
+                  8
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    9
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    10
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    11
+                  </div>
+                </div>
+                <div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    12
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    13
+                  </div>
+                  <div class="widget third Medium" title="Medium Widget Area">
+                    14
+                  </div>
+                </div> 
+
+              </div>
+
+              <span style="centerme">
+                <p>Box numbers correspond to the Portal Widget positions.</p>
+              </span>  
+
+            </span>              
+
+            <!-- Check template -->            
+          </div>
+        </div>
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Everything Look Good?</h3>
+        </div>
+        <div class="panel-body">
+          <span class="btn btn-primary color-ssp-green" ng-click="c.sendItAll()">Save Portal Personalization</span>
+        </div>
+      </div>
+
+    </div>
+  </div>]]></template>
+    </sp_widget>
+</record_update>

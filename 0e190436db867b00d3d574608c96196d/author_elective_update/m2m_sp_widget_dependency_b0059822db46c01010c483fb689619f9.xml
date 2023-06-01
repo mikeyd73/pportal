@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency">
+    <m2m_sp_widget_dependency action="DELETE">
+        <sp_dependency display_value="HighCharts WordCloud 721">5f344892db70cc50f42f32dc7c961926</sp_dependency>
+        <sp_widget display_value="SSP-Completion-Bar-Chart">63eb8df2dbca7b00d3d574608c961903</sp_widget>
+        <sys_class_name>m2m_sp_widget_dependency</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-02 17:00:39</sys_created_on>
+        <sys_id>b0059822db46c01010c483fb689619f9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HighCharts WordCloud 721.SSP-Completion-Bar-Chart</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>m2m_sp_widget_dependency_b0059822db46c01010c483fb689619f9</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-02 17:00:39</sys_updated_on>
+    </m2m_sp_widget_dependency>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Persona SSP">0e190436db867b00d3d574608c96196d</application>
+        <file_path/>
+        <instance_id>85f207696f9e420056007b2f5d3ee415</instance_id>
+        <instance_name>saicdemo1</instance_name>
+        <name>m2m_sp_widget_dependency_b0059822db46c01010c483fb689619f9</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_widget_dependency"><m2m_sp_widget_dependency action="INSERT_OR_UPDATE"><sp_dependency display_value="HighCharts WordCloud 721">5f344892db70cc50f42f32dc7c961926</sp_dependency><sp_widget display_value="SSP-Completion-Bar-Chart">63eb8df2dbca7b00d3d574608c961903</sp_widget><sys_class_name>m2m_sp_widget_dependency</sys_class_name><sys_created_by>adminbleicherd</sys_created_by><sys_created_on>2020-01-02 17:00:39</sys_created_on><sys_id>b0059822db46c01010c483fb689619f9</sys_id><sys_mod_count>0</sys_mod_count><sys_name>HighCharts WordCloud 721.SSP-Completion-Bar-Chart</sys_name><sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package><sys_policy/><sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope><sys_update_name>m2m_sp_widget_dependency_b0059822db46c01010c483fb689619f9</sys_update_name><sys_updated_by>adminbleicherd</sys_updated_by><sys_updated_on>2020-01-02 17:00:39</sys_updated_on></m2m_sp_widget_dependency></record_update>]]></payload>
+        <payload_hash>-1123508586</payload_hash>
+        <record_name>HighCharts WordCloud 721.SSP-Completion-Bar-Chart</record_name>
+        <reverted_from/>
+        <source>1dcf0c62db06c01010c483fb68961911</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-02 17:00:39</sys_created_on>
+        <sys_id>b0055c22db46c01010c483fb689619d9</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>16f6733b4130000001</sys_recorded_at>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-02 17:00:39</sys_updated_on>
+        <type>Widget Dependency</type>
+        <update_guid>7c0598227e46c010cca9bf88c2177bfa</update_guid>
+        <update_guid_history>7c0598227e46c010cca9bf88c2177bfa:-1123508586</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="HighCharts WordCloud 721.SSP-Completion-Bar-Chart">ec9510a2db46c01010c483fb689619ee</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-02 17:03:05</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_widget_dependency">m2m_sp_widget_dependency</sys_db_object>
+        <sys_id>13b7f24192b94c228df4b2f87b32efc4</sys_id>
+        <sys_metadata>b0059822db46c01010c483fb689619f9</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>HighCharts WordCloud 721.SSP-Completion-Bar-Chart</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_scope_delete display_value="">03e9a5c07ee4469683158cfd2c7eee04</sys_scope_delete>
+        <sys_update_name>m2m_sp_widget_dependency_b0059822db46c01010c483fb689619f9</sys_update_name>
+        <sys_update_version display_value="m2m_sp_widget_dependency_b0059822db46c01010c483fb689619f9">b0055c22db46c01010c483fb689619d9</sys_update_version>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-02 17:03:05</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

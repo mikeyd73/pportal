@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_theme">
+    <sp_theme action="INSERT_OR_UPDATE">
+        <css_variables>&#13;
+// Change $brand- colors to rebrand scheme&#13;
+$brand-primary: #0B5399 !default;&#13;
+$brand-secondary: #418bca !default;&#13;
+$sp-navbar-divider-color: #5A7F71 !default;&#13;
+$navbar-inverse-link-hover-color: #ffffff !default;&#13;
+$navbar-inverse-bg: #293e40 !default;&#13;
+$navbar-inverse-link-color: #A7B0B2 !default;&#13;
+$sp-logo-margin-x: 15px !default;&#13;
+// END COLOR SCHEME MAIN COLORS //&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+&#13;
+$sp-logo-margin-x: 		          15px !default;&#13;
+$sp-tagline-color:		          $text-color !default;&#13;
+&#13;
+$sp-navbar-divider-color: #5A7F71 !default;&#13;
+$navbar-inverse-link-hover-color: #ffffff !default;&#13;
+$navbar-inverse-bg: #293e40 !default;&#13;
+$navbar-inverse-link-color: #A7B0B2 !default;&#13;
+&#13;
+$body-bg: 				          #FFFFFF !default;&#13;
+$dropdown-link-disabled-color:    #ccc;&#13;
+&#13;
+&#13;
+</css_variables>
+        <footer/>
+        <footer_fixed>false</footer_fixed>
+        <header display_value="SSP Header">4b221c72dbc67b00d3d574608c961990</header>
+        <name>UPSSP Theme</name>
+        <navbar_fixed>true</navbar_fixed>
+        <sys_class_name>sp_theme</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 15:23:20</sys_created_on>
+        <sys_id>3b931c32dbc67b00d3d574608c961978</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>UPSSP Theme</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_theme_3b931c32dbc67b00d3d574608c961978</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-06-18 17:32:54</sys_updated_on>
+    </sp_theme>
+</record_update>

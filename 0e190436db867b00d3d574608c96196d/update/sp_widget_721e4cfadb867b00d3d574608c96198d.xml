@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function($http, $scope, $rootScope, spUtil, $window) {
+  /* widget controller */
+  var c = this;
+	
+	c.custer = function() {
+		$window.location.href = "/upssp?id=ssp_customizer"
+	};
+	
+	c.updateTemp = function() {
+		var myNewTemp = c.data.selectedTemplate.title;
+		
+		if (myNewTemp == "Power User") {
+			c.data.myTemplate = "sspPowerUserTemplate";
+		} else if (myNewTemp == "Max User") {
+			c.data.myTemplate = "sspMaxUserTemplate";
+		} else if (myNewTemp == "Moderate") {
+			c.data.myTemplate = "sspModerateTemplate";
+		} else if (myNewTemp == "Alt Simple") {
+			c.data.myTemplate = "sspAltSimpleTemplate";
+		} else {
+			c.data.myTemplate = "sspSimpleTemplate";
+		}
+		
+		// Set the preferred homepage for this user on backend
+		$http.get('/api/x_saic4_persona_ss/client_utils/setPreferredTemplate?prefHome='+myNewTemp)
+			.then(function(res) {
+			console.log("updateTemp did get called with: "+myNewTemp);
+		 });	
+				
+	}
+	
+	// Listen for the feedback indicator
+	// TODO: should move these to the feedback widget
+	$rootScope.$on('sspGotFeedback', function(event,data) { 
+		spUtil.addTrivialMessage("Thank you for your feedback!");
+	});
+
+	$rootScope.$on('sspGoClassicTemp', function(event,data) { 
+		c.data.selectedTemplate = c.data.templates[0];
+		c.updateTemp();
+	});
+
+	$rootScope.$on('sspGoNewTemp', function(event,data) { 
+		c.data.selectedTemplate = c.data.templates[1];
+		c.updateTemp();
+	});
+
+	c.barista = function() {
+		
+		var w = window.innerWidth;
+		var h = window.innerHeight;
+		
+		console.log(w + ":" + h);
+		
+		var calcx = w;
+		var calcy = h;
+		
+		console.log(calcx + ":" + calcy);
+		
+		window.open('https://saicprod.espressive.com/app/barista/?phrase=&submit=y', 'barista', 'height=736,width=460,top='+calcy+',left='+calcx+',location=no,scrollbars=no,status=no,titlebar=no,toolbar=no')
+	};
+	
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.container-fluid {&#13;
+	width: 100%;&#13;
+}&#13;
+.row {&#13;
+	margin-top: 10px;&#13;
+}&#13;
+&#13;
+.custSearchRow {&#13;
+  background: rgb(11,83,153);&#13;
+  background: radial-gradient(circle, rgba(11,83,153,1) 0%, rgba(11,83,153,1) 27%, rgba(69,134,197,1) 100%);&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+  &#13;
+.custSearchHeader {&#13;
+	text-align: center  !important;&#13;
+  color: #fff !important;&#13;
+} &#13;
+&#13;
+.custSearch {&#13;
+  padding: 15px;&#13;
+  background: $brand-primary;&#13;
+  // background: #0B5399;&#13;
+  white-space: nowrap;&#13;
+  border-radius: 25px;&#13;
+  margin-bottom: 20px;&#13;
+}&#13;
+ &#13;
+.megaContain {&#13;
+  max-width: 1280px;&#13;
+}&#13;
+&#13;
+/* Editable */&#13;
+.custOldThingKeepAround {&#13;
+  background: #0B5399;&#13;
+  background: #418BCA;&#13;
+  #0B5399&#13;
+  0B5399&#13;
+  background: radial-gradient(circle, rgba(11,83,153,1) 0%, rgba(11,83,153,1) 27%, rgba(69,134,197,1) 100%);&#13;
+}&#13;
+&#13;
+html,body {&#13;
+    height: 100% !important;&#13;
+}&#13;
+&#13;
+#myMainContain {&#13;
+    min-height: 100%;&#13;
+    position:relative;&#13;
+    /* Firefox */&#13;
+    min-height: -moz-calc(100% - 30px);&#13;
+    /* WebKit */&#13;
+    min-height: -webkit-calc(100% - 30px);&#13;
+    /* Opera */&#13;
+    min-height: -o-calc(100% - 30px);&#13;
+    /* Standard */&#13;
+    min-height: calc(100% - 30px);&#13;
+}&#13;
+&#13;
+// Fixed bottom footer&#13;
+#holder {&#13;
+  min-height: 100%;&#13;
+  position:relative;&#13;
+  height: 100vh;&#13;
+  max-height: calc(100vh - 130px); // Might take header into account&#13;
+}&#13;
+&#13;
+body {&#13;
+  padding-bottom: 50px;    /* height of footer */&#13;
+}&#13;
+&#13;
+#footerarea {&#13;
+    height: 50px;&#13;
+    left: 0;&#13;
+    position: absolute;&#13;
+    right: 0;&#13;
+}&#13;
+&#13;
+</css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description>U-Centric Persona SSP Engine</description>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>persona_engine</id>
+        <internal>false</internal>
+        <link/>
+        <name>Persona Engine</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+  /* populate the 'data' object */
+  /* e.g., data.table = $sp.getValue('table'); */
+
+	
+	// Get a reference to the SSPMegaUtil
+	// utility library;
+	var mu = new SSPMegaUtil();
+	
+	// Get available templates
+	data.templates = mu.getTemplateListing();
+	
+	// Determine if user has a preferred homepage template
+	// or provide the default one
+	data.ssphPref = gs.getUser().getPreference('ssp_preferred_homepage');
+	if (!data.ssphPref) {
+		data.ssphPref = "Simple";
+		gs.getUser().savePreference("ssp_preferred_homepage", data.ssphPref);
+	}
+	
+	// Get user-specific stuff
+	// TODO:  move to widgets that actually use this
+	data.userFirst = gs.getUser().getFirstName();
+	data.userTimeZone = gs.getSession().getTimeZoneName();
+	
+	// Retrieve user's preferred widget list, or default
+	var widgetList = gs.getUser().getPreference('ssp_preferred_widgetlist');
+	data.prefDat = {};
+	if(widgetList) {
+		// console.log("Here's what I got back: "+widgetList);
+		data.prefDat.widgetList = JSON.parse(widgetList);
+	} else {
+		data.prefDat.widgetList = mu.getDefaultWidgetList();
+	}
+	
+	// Load the widget models for all
+	// widgets in the list
+	// TODO: refactor to only load models
+	//       for widgets that will display
+	//       in a given template.
+	data.wd = [];
+	var x, l = data.prefDat.widgetList.length;
+	for (x = 0; x < l; x++) {
+			data.wd.push(
+				$sp.getWidget(data.prefDat.widgetList[x].id, data.prefDat.widgetList[x].options)
+			);		
+	}
+	
+	// There are three special widgets that
+	// most templates will load, getting their
+	// models here, just for fun:
+	data.wBigSearch = $sp.getWidget("ssp_main_search_block", {});
+	data.wHPMaster = $sp.getWidget("ssp_hp_master", {});
+	data.wMyStuff = $sp.getWidget("ssp_my_stuff", {});
+	
+	// Set the current template
+	var ctIdx = mu.getTemplateIndexFromTitle(data.ssphPref, data.templates);
+	data.myTemplate = data.templates[ctIdx].tpName;
+	data.selectedTemplate = data.templates[ctIdx];
+	
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 14:57:48</sys_created_on>
+        <sys_id>721e4cfadb867b00d3d574608c96198d</sys_id>
+        <sys_mod_count>6</sys_mod_count>
+        <sys_name>Persona Engine</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_widget_721e4cfadb867b00d3d574608c96198d</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-14 13:46:15</sys_updated_on>
+        <template><![CDATA[<div id="holder">
+
+  <div id="myMainContain" class="container-fluid" ng-include="c.data.myTemplate"></div>
+  <div id="footerarea">
+    <widget id="ssp_footer"></widget>  
+  </div>
+
+</div>]]></template>
+    </sp_widget>
+</record_update>

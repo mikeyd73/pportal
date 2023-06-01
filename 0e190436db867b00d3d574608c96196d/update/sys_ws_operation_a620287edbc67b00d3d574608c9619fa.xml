@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json,application/xml,text/xml</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>POST</http_method>
+        <name>setWidgetList</name>
+        <operation_script><![CDATA[(function process(/*RESTAPIRequest*/ request, /*RESTAPIResponse*/ response) {
+
+    var qp = request.body.data;
+	
+	try {
+		gs.getUser().savePreference("ssp_preferred_widgetlist", JSON.stringify(qp.widgetList));
+	} catch (e) {
+		return "Bad News: "+e;
+	}
+	return "Should have worked";
+	
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_saic4_persona_ss/client_utils/setWidgetList</operation_uri>
+        <produces>application/json,application/xml,text/xml</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/setWidgetList</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>true</requires_snc_internal_role>
+        <short_description/>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 16:17:21</sys_created_on>
+        <sys_id>a620287edbc67b00d3d574608c9619fa</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>setWidgetList</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sys_ws_operation_a620287edbc67b00d3d574608c9619fa</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-06-18 16:17:21</sys_updated_on>
+        <web_service_definition display_value="Client Utils">a9fe943edbc67b00d3d574608c9619cb</web_service_definition>
+        <web_service_version/>
+    </sys_ws_operation>
+</record_update>

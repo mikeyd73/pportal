@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_search_source">
+    <m2m_sp_portal_search_source action="INSERT_OR_UPDATE">
+        <order>100</order>
+        <sp_portal display_value="U-Centric Persona SSP">79da807adb867b00d3d574608c961982</sp_portal>
+        <sp_search_source display_value="Resources">bf2c4c15b3a31300e64be12b86a8dcb7</sp_search_source>
+        <sys_class_name>m2m_sp_portal_search_source</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-13 17:59:28</sys_created_on>
+        <sys_id>a1fbcd46db5e8450c266fcfa689619ff</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>U-Centric Persona SSP.Knowledge Base</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>m2m_sp_portal_search_source_a1fbcd46db5e8450c266fcfa689619ff</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-13 17:59:28</sys_updated_on>
+    </m2m_sp_portal_search_source>
+</record_update>

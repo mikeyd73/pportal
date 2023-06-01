@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>public</access>
+        <active>true</active>
+        <api_name>x_saic4_persona_ss.SSPMyStuffUtil</api_name>
+        <caller_access/>
+        <client_callable>true</client_callable>
+        <description>Utility methods for the SSP MyStuff widget</description>
+        <name>SSPMyStuffUtil</name>
+        <script><![CDATA[var SSPMyStuffUtil = Class.create();
+SSPMyStuffUtil.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+
+	////////////////////////////////////////
+	// Given a named category, this method
+	// returns an array of relevant links.
+	// Can bg configured statically, as below,
+	// but SHOULD BE MODIFIED TO perform database
+	// queries to obtain currently relevant
+	// links.
+	////////////////////////////////////////	
+	getLinkListByCategory: function(category) {
+			
+		var catLinks = {
+			"mainLinks" : [
+				{"title" : "Password Reset", "link" : "/upssp?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Timecard Assistance", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Report an Issue", "link" : "/upssp?id=sc_cat_item&sys_id=3f1dd0320a0a0b99000a53f7604a2ef9&sysparm_category=e15706fc0a0a0aa7007fc21e1ab70c2f"},
+				{"title" : "Mobile Devices & Access", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Agency Directory", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+			"helpLinks" : [
+				{"title" : "Help Resetting Password", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Timecard Assistance", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Report an Issue", "link" : "/upssp?id=sc_cat_item_legacy&sys_id=6f6652ea2bbebd00979e1ee119da156e"},
+				{"title" : "Mobile Devices & Access", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Agency Directory", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+			"serviceLinks" : [
+				{"title" : "New Application Access", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Mobile Devices", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "New Personal Computer", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Employee Onboarding", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "View our Service Catalog", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+			"answerLinks" : [
+				{"title" : "How to reset your password", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Configure Out of Office email", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Help with common software", "link" : "/upssp?id=kb_search&kb_knowledge_base=3b65e7e1dbed7f40f42f32dc7c9619c1"},
+				{"title" : "Take required training", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "The Answers Homepage...", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+
+			"financeLinks" : [
+				{"title" : "Adjust Timecard", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "File an expense report", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "My compensation history", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "View previous paystubs", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Finance Services...", "link" : "/es3?id=sc_category_es3&sys_id=4e572ee329ed0e0073b86d9f19bb263d&title=Financial%20Services"}
+			],
+
+			"humanLinks" : [
+				{"title" : "Extended leave policy", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "My required training", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "My compensation history", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Ethics guidance", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Human Resources Homepage...", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"}
+			],
+
+			"techLinks" : [
+				{"title" : "Register for password reset", "link" : "/upssp?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Mobile Devices", "link" : "/upssp?id=sc_category&sys_id=d68eb4d637b1300054b6a3549dbe5db2&catalog_id=-1"},
+				{"title" : "Order replacement computers", "link" : "/upssp?id=sc_category&sys_id=d258b953c611227a0146101fb1be7c31&catalog_id=-1"},
+				{"title" : "Network / Service status", "link" : "/upssp?id=services_status"},
+				{"title" : "Help with common software", "link" : "/upssp?id=kb_search&kb_knowledge_base=3b65e7e1dbed7f40f42f32dc7c9619c1&spa=1&kb_category=1b55434adbe63f84cb5332dc7c9619b5,ecb74f4edbe23384c65f3e4b7c9619c9,484743cadbe23384c65f3e4b7c961914"}
+			],
+
+			"facilityLinks" : [
+				{"title" : "Report power outage", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Request repair / maintenance", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Schedule office move", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Search location codes", "link" : "/ssp1?id=sc_cat_item&sys_id=29a39e830a0a0b27007d1e200ad52253"},
+				{"title" : "Facilities Catalog...", "link" : "/upssp?id=sc_category_es3&sys_id=36b2f7bf1390030098317e276144b0bf&title=Facilities%20Services"}
+			]
+		};
+		
+		return catLinks[category];
+		
+	},
+	
+	
+	
+    type: 'SSPMyStuffUtil'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 15:37:38</sys_created_on>
+        <sys_id>aa079cb2dbc67b00d3d574608c961976</sys_id>
+        <sys_mod_count>11</sys_mod_count>
+        <sys_name>SSPMyStuffUtil</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sys_script_include_aa079cb2dbc67b00d3d574608c961976</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-13 19:05:08</sys_updated_on>
+    </sys_script_include>
+</record_update>

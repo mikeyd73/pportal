@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog">
+    <m2m_sp_portal_catalog action="DELETE">
+        <active>true</active>
+        <order>100</order>
+        <sc_catalog display_value="Technical Catalog">742ce428d7211100f2d224837e61036d</sc_catalog>
+        <sp_portal display_value="U-Centric Persona SSP">79da807adb867b00d3d574608c961982</sp_portal>
+        <sys_class_name>m2m_sp_portal_catalog</sys_class_name>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-13 18:00:18</sys_created_on>
+        <sys_id>352c4586db5e8450c266fcfa689619ee</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Technical Catalog.U-Centric Persona SSP</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>m2m_sp_portal_catalog_352c4586db5e8450c266fcfa689619ee</sys_update_name>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-13 18:00:18</sys_updated_on>
+    </m2m_sp_portal_catalog>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="Persona SSP">0e190436db867b00d3d574608c96196d</application>
+        <file_path/>
+        <instance_id>85f207696f9e420056007b2f5d3ee415</instance_id>
+        <instance_name>saicdemo1</instance_name>
+        <name>m2m_sp_portal_catalog_352c4586db5e8450c266fcfa689619ee</name>
+        <payload><![CDATA[<?xml version="1.0" encoding="UTF-8"?><record_update table="m2m_sp_portal_catalog"><m2m_sp_portal_catalog action="INSERT_OR_UPDATE"><active>true</active><order>100</order><sc_catalog display_value="Technical Catalog">742ce428d7211100f2d224837e61036d</sc_catalog><sp_portal display_value="U-Centric Persona SSP">79da807adb867b00d3d574608c961982</sp_portal><sys_class_name>m2m_sp_portal_catalog</sys_class_name><sys_created_by>adminbleicherd</sys_created_by><sys_created_on>2020-01-13 18:00:18</sys_created_on><sys_id>352c4586db5e8450c266fcfa689619ee</sys_id><sys_mod_count>0</sys_mod_count><sys_name>Technical Catalog.U-Centric Persona SSP</sys_name><sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package><sys_policy/><sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope><sys_update_name>m2m_sp_portal_catalog_352c4586db5e8450c266fcfa689619ee</sys_update_name><sys_updated_by>adminbleicherd</sys_updated_by><sys_updated_on>2020-01-13 18:00:18</sys_updated_on></m2m_sp_portal_catalog></record_update>]]></payload>
+        <payload_hash>283150657</payload_hash>
+        <record_name>Technical Catalog.U-Centric Persona SSP</record_name>
+        <reverted_from/>
+        <source>1dcf0c62db06c01010c483fb68961911</source>
+        <source_table>sys_update_set</source_table>
+        <state>current</state>
+        <sys_created_by>adminbleicherd</sys_created_by>
+        <sys_created_on>2020-01-13 18:00:18</sys_created_on>
+        <sys_id>f92c4586db5e8450c266fcfa689619ef</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>16fa010441d0000001</sys_recorded_at>
+        <sys_updated_by>adminbleicherd</sys_updated_by>
+        <sys_updated_on>2020-01-13 18:00:18</sys_updated_on>
+        <type>Portal Catalog</type>
+        <update_guid>f12c4586f05e8450e5c6aca2c94a4fef</update_guid>
+        <update_guid_history>f12c4586f05e8450e5c6aca2c94a4fef:283150657</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Technical Catalog.U-Centric Persona SSP">8e4058e487b2ed10607e4089cebb35f0</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>guest</sys_created_by>
+        <sys_created_on>2023-05-10 19:26:09</sys_created_on>
+        <sys_db_object display_value="" name="m2m_sp_portal_catalog">m2m_sp_portal_catalog</sys_db_object>
+        <sys_id>a2677b46b87d42308325ccc03dd38390</sys_id>
+        <sys_metadata>352c4586db5e8450c266fcfa689619ee</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Technical Catalog.U-Centric Persona SSP</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_scope_delete display_value="">03e9a5c07ee4469683158cfd2c7eee04</sys_scope_delete>
+        <sys_update_name>m2m_sp_portal_catalog_352c4586db5e8450c266fcfa689619ee</sys_update_name>
+        <sys_update_version display_value="m2m_sp_portal_catalog_352c4586db5e8450c266fcfa689619ee">f92c4586db5e8450c266fcfa689619ef</sys_update_version>
+        <sys_updated_by>guest</sys_updated_by>
+        <sys_updated_on>2023-05-10 19:26:09</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>

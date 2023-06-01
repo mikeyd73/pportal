@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_header_footer">
+    <sp_header_footer action="INSERT_OR_UPDATE">
+        <category>custom</category>
+        <client_script><![CDATA[function ($rootScope, $scope, snRecordWatcher, spUtil, $location, $uibModal, cabrillo, $timeout, $window) {
+	
+	var c = this;
+	
+	// c.data.myNavDiv = angular.element(document.getElementById('myLeftNavDiv'));
+	
+	$scope.collapse = function() {
+		$rootScope.$emit('sp-navbar-collapse');
+	}
+
+	$scope.avatarProfile = {
+		userID: $scope.user.sys_id,
+		name: $scope.user.name,
+		initials: $window.NOW.user_initials
+	};
+
+	if ($window.NOW.user_avatar) {
+		$scope.avatarProfile.userImage = $window.NOW.user_avatar;
+	}
+
+	if (cabrillo.isNative()) {
+		if ($window.innerWidth < 768) {
+			$scope.isViewNative = true;
+			$scope.isViewNativeTablet = true;
+		} else {
+			$scope.isViewNativeTablet = true;
+		}
+	}
+
+
+	$scope.openPopUp = function() {
+		var url = "$chat_support.do?queueID=" + $scope.data.connect_support_queue_id;
+		var popup = window.open (url, "popup", "width=900, height=600");
+	};
+
+	$scope.openLogin = function () {
+		$scope.modalInstance = $uibModal.open({
+			templateUrl: 'modalLogin',
+			scope: $scope
+		});
+	};
+
+	var xsScreenSize = isXSScreenSize();
+	$scope.showXSAvatar = isXSScreenSize();
+	$scope.showAvatar = !isXSScreenSize();
+
+	angular.element($window).on('resize', function () {
+		if(xsScreenSize !== isXSScreenSize() && (!$scope.showXSAvatar || !$scope.showAvatar)){
+			$scope.showXSAvatar = true;
+			$scope.showAvatar = true;
+		}
+	});
+
+
+	function isXSScreenSize() {
+		return $window.matchMedia('(max-width: 768px)').matches;
+	}
+
+	$rootScope.$on('sp.avatar_changed', function() {
+		$scope.userID = "";
+		$timeout(function(){
+			$scope.userID = $scope.user.sys_id;
+		});
+	});
+
+	$scope.isHomepage = function() {
+		if (!$scope.page.id)
+			return true;
+
+		if ($scope.page.id == $scope.portal.homepage_dv)
+			return true;
+
+		return false;
+	};
+
+	// ADDING SIDENAV ROUTINES HERE
+	// SIDENAV CODE	
+	// c.data.menu = angular.element(document.getElementById('theMainSNHeader')).data.menu;
+	
+	$scope.avatarProfile = {
+		userID: $scope.user.sys_id,
+		name: $scope.user.name,
+		initials: $window.NOW.user_initials
+	};
+	
+	$(document).ready(function () {
+		var trigger = $('.hamburger'),
+				overlay = $('.overlay'),
+			 isClosed = false;
+
+			trigger.click(function () {
+				hamburger_cross();      
+			});
+
+			function hamburger_cross() {
+				if (isClosed == true) {          
+					overlay.hide();
+					trigger.removeClass('is-open');
+					trigger.addClass('is-closed');
+					isClosed = false;			
+				} else {   
+					overlay.show();
+					trigger.removeClass('is-closed');
+					trigger.addClass('is-open');
+					isClosed = true;
+				}
+			}
+
+		
+		$("#wrapper").focusout(function () {
+			$('#wrapper').toggleClass('toggled');    
+		});
+
+	
+		$('[data-toggle="offcanvas"]').click(function () {
+			$('#wrapper').toggleClass('toggled');	
+		});  
+		
+	});
+
+
+		
+}]]></client_script>
+        <controller_as>c</controller_as>
+        <css>.navbar-inverse {&#13;
+    background-color: $brand-primary;&#13;
+    border-color: $brand-primary;&#13;
+}&#13;
+&#13;
+.navbar {&#13;
+  transition: 250ms opacity ease-in-out;&#13;
+  -webkit-transition: 250ms opacity ease-in-out;&#13;
+  border: 0;&#13;
+  // border-bottom: 4px solid $brand-primary;&#13;
+ }&#13;
+&#13;
+.navbar-fade {&#13;
+  opacity: 0.4;&#13;
+}&#13;
+&#13;
+.navbar-inverse .navbar-toggle {&#13;
+  border-color: rgba(255, 255, 255, 0.25);&#13;
+  float: left;&#13;
+  margin-left: 15px;&#13;
+}&#13;
+&#13;
+.navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {&#13;
+    background-color: $brand-secondary;&#13;
+}&#13;
+&#13;
+/* Force toggle nav to display */&#13;
+@media  (min-width: 10px) {&#13;
+	.navbar-toggle {&#13;
+		display: inline-block;&#13;
+	}&#13;
+}&#13;
+&#13;
+&#13;
+header[role="banner"],&#13;
+.nav &gt; li &gt; a {&#13;
+  max-height: 60px;&#13;
+}&#13;
+&#13;
+@media screen and (max-width: 768px){&#13;
+  .nav &gt; li &gt; a {&#13;
+    padding-right: 0.5rem;&#13;
+    padding-left: 0.5rem;&#13;
+  }&#13;
+}&#13;
+&#13;
+.navbar-brand {&#13;
+  max-height: 60px;&#13;
+  padding: 0;&#13;
+  padding-bottom: 0.5rem;&#13;
+}&#13;
+&#13;
+.navbar-brand img, .navbar-brand span {&#13;
+  margin-left: $sp-logo-margin-x;&#13;
+  margin-right: $sp-logo-margin-x;&#13;
+  margin-top: $sp-logo-margin-y;&#13;
+  margin-bottom: $sp-logo-margin-y;&#13;
+  display: block;&#13;
+  max-height: $sp-logo-max-height;&#13;
+  max-width: $sp-logo-max-width;&#13;
+  position: relative;&#13;
+  top: 50%;&#13;
+  -webkit-transform: translateY(-50%);&#13;
+  -ms-transform: translateY(-50%);&#13;
+  transform: translateY(-50%);&#13;
+}&#13;
+.breadcrumb-container {&#13;
+  background-color: $panel-bg;&#13;
+}&#13;
+&#13;
+/* for mobile app */&#13;
+.navbar-inverse.is-native {&#13;
+  background-color: ;&#13;
+}&#13;
+&#13;
+nav {&#13;
+  margin-bottom: 0px;&#13;
+  border-radius: 0px;&#13;
+&#13;
+  .toggle-dropdown {&#13;
+    height: 60px;&#13;
+  }&#13;
+&#13;
+}&#13;
+&#13;
+.navbar-right {&#13;
+  padding-right: 0px;&#13;
+  padding-left: 7px;&#13;
+}&#13;
+&#13;
+.navbar-nav {&#13;
+margin: 0px;&#13;
+}&#13;
+&#13;
+// PRB711244: Dropdown menu is scrollable when too many items&#13;
+.scrollable-dropdown {&#13;
+  max-height: 80vh;&#13;
+  overflow: auto;&#13;
+  height: auto;&#13;
+}&#13;
+&#13;
+.is-native {&#13;
+ .scrollable-dropdown {&#13;
+  max-height: 100vh;&#13;
+  overflow: scroll;&#13;
+  height: auto;&#13;
+	}&#13;
+}&#13;
+&#13;
+&#13;
+/* PRB923910: Fix for Service Portal - Header Poorly Aligned in Safari */&#13;
+@media screen and (min-width: 767px) {&#13;
+  .navbar-right {&#13;
+       display: flex !important;&#13;
+  }&#13;
+  &#13;
+  &#13;
+/* Custom Code */  &#13;
+&#13;
+@media screen and (max-width: 767px) {&#13;
+.visible-lg-hide {&#13;
+ display: none !important;&#13;
+}&#13;
+}&#13;
+ &#13;
+@media screen and (max-width: 767px) {&#13;
+.hidden-topnav {&#13;
+ display: visible !important;&#13;
+}  &#13;
+  &#13;
+  &#13;
+/* Keep Avatar in upper right */&#13;
+@media screen and (max-width: 770px) {&#13;
+    .navbar-right  {&#13;
+    float: right !important;&#13;
+    margin-right: 15px;&#13;
+    position: absolute !important;&#13;
+    top: 20px;&#13;
+	  right: 20px;&#13;
+    display: visible !important;&#13;
+}&#13;
+.navbar-right .dropdown-menu {&#13;
+    right: 0 !important;&#13;
+    left: auto !important;&#13;
+}  &#13;
+.navbar-nav &gt; li {&#13;
+    float: left  !important;&#13;
+}  &#13;
+ .navbar-nav {&#13;
+    float: right !important;&#13;
+    margin: 0;&#13;
+} &#13;
+.navbar-right {&#13;
+    display: flex !important;&#13;
+}  &#13;
+}     &#13;
+    &#13;
+@media screen and (min-width: 770px) {&#13;
+    .mobile-avatar  {&#13;
+    float: right !important;&#13;
+    margin-right: 15px;&#13;
+    position: absolute !important;&#13;
+    top: 20px;&#13;
+	  right: 20px;&#13;
+    width: 40px;&#13;
+    display: none !important;&#13;
+    z-index: 1600;&#13;
+}    &#13;
+    &#13;
+////////////////////////////////////&#13;
+// Header and Side Nav Styling&#13;
+.navbar-inverse .navbar-nav &gt; li &gt; a {&#13;
+    color: $light-text !important;&#13;
+}&#13;
+// Hamburger icon hover&#13;
+.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {&#13;
+    background-color: $brand-secondary;&#13;
+}&#13;
+&#13;
+.dropdown-menu &gt; li &gt; a {&#13;
+    color: $light-text;&#13;
+}&#13;
+&#13;
+.empty-tour-content {&#13;
+  width: 170px;&#13;
+}&#13;
+&#13;
+@media (min-width: 768px)&#13;
+  .navbar-nav {&#13;
+  max-width: 100% !important;&#13;
+}&#13;
+}&#13;
+  &#13;
+/* Loading indicator */&#13;
+.header-loader {&#13;
+    width: 24px;&#13;
+    position: fixed !important;&#13;
+    top: 30px !important;&#13;
+		left: 200px !important;&#13;
+}   &#13;
+  &#13;
+  &#13;
+/* LEFT NAV CSS - Keep in header for portability? */&#13;
+/*-------------------------------*/&#13;
+/*           Wrappers            */&#13;
+/*-------------------------------*/&#13;
+&#13;
+#wrapper {&#13;
+    padding-left: 0;&#13;
+    -webkit-transition: all 0.5s ease;&#13;
+    -moz-transition: all 0.5s ease;&#13;
+    -o-transition: all 0.5s ease;&#13;
+    transition: all 0.5s ease;&#13;
+}&#13;
+&#13;
+#wrapper.toggled {&#13;
+    padding-left: 220px;&#13;
+}&#13;
+ &#13;
+#sidebar-wrapper {&#13;
+    z-index: 1000;&#13;
+    left: 230px;&#13;
+    top: 60px;&#13;
+    width: 0;&#13;
+    height: 100%;&#13;
+    margin-left: -230px;&#13;
+    overflow-y: auto;&#13;
+    overflow-x: hidden;&#13;
+    background-color: $brand-secondary;&#13;
+    -webkit-transition: all 0.5s ease;&#13;
+    -moz-transition: all 0.5s ease;&#13;
+    -o-transition: all 0.5s ease;&#13;
+    transition: all 0.5s ease;&#13;
+		-webkit-box-shadow: 1px 0px 2px 0px rgba(82,77,82,1);&#13;
+		-moz-box-shadow: 1px 0px 2px 0px rgba(82,77,82,1);&#13;
+		box-shadow: 1px 0px 2px 0px rgba(82,77,82,1);&#13;
+}&#13;
+&#13;
+#sidebar-wrapper::-webkit-scrollbar {&#13;
+  	display: none;&#13;
+}&#13;
+&#13;
+#wrapper.toggled #sidebar-wrapper {&#13;
+    width: 220px;&#13;
+}&#13;
+&#13;
+#page-content-wrapper {&#13;
+    width: 100%;&#13;
+}&#13;
+&#13;
+#wrapper.toggled #page-content-wrapper {&#13;
+    position: absolute;&#13;
+    margin-right: -220px;&#13;
+}&#13;
+&#13;
+/*-------------------------------*/&#13;
+/*     Sidebar nav styles        */&#13;
+/*-------------------------------*/&#13;
+&#13;
+.sidebar-nav {&#13;
+    position: absolute;&#13;
+    top: 0;&#13;
+    width: 220px;&#13;
+    margin: 0;&#13;
+    padding: 0;&#13;
+    list-style: none;&#13;
+}&#13;
+&#13;
+.sidebar-nav li {&#13;
+    position: relative; &#13;
+    line-height: 20px;&#13;
+    display: inline-block;&#13;
+    width: 100%;&#13;
+}&#13;
+&#13;
+.sidebar-nav li:first-child a {&#13;
+    color: $light-text;;&#13;
+}&#13;
+&#13;
+.sidebar-nav li:hover:before,&#13;
+.sidebar-nav li.open:hover:before {&#13;
+    width: 100%;&#13;
+    -webkit-transition: width .2s ease-in;&#13;
+      -moz-transition:  width .2s ease-in;&#13;
+       -ms-transition:  width .2s ease-in;&#13;
+            transition: width .2s ease-in;&#13;
+}&#13;
+&#13;
+.sidebar-nav li a {&#13;
+    display: block;&#13;
+    color: #ddd;&#13;
+    text-decoration: none;&#13;
+    padding: 10px 15px 10px 30px;    &#13;
+}&#13;
+&#13;
+.sidebar-nav li a:hover,&#13;
+.sidebar-nav li a:active,&#13;
+.sidebar-nav li a:focus,&#13;
+.sidebar-nav li.open a:hover,&#13;
+.sidebar-nav li.open a:active,&#13;
+.sidebar-nav li.open a:focus{&#13;
+    color: #fff; &#13;
+    text-decoration: none;&#13;
+    background-color: $brand-primary !important;&#13;
+}&#13;
+&#13;
+.sidebar-nav &gt; .sidebar-brand {&#13;
+    height: 65px;&#13;
+    font-size: 20px;&#13;
+    line-height: 44px;&#13;
+}&#13;
+.sidebar-nav .dropdown-menu {&#13;
+    position: relative;&#13;
+    width: 100%;&#13;
+    padding: 0;&#13;
+    margin: 0;&#13;
+    border-radius: 0;&#13;
+    border: none;&#13;
+    background-color: #222;&#13;
+    box-shadow: none;&#13;
+}&#13;
+&#13;
+/* Shop Button */ &#13;
+.btn-default {&#13;
+  background-color: transparent;&#13;
+}&#13;
+  &#13;
+/*-------------------------------*/&#13;
+/*            Overlay            */&#13;
+/*-------------------------------*/&#13;
+&#13;
+.overlay {&#13;
+    position: fixed;&#13;
+    display: none;&#13;
+    width: 100%;&#13;
+    height: 100%;&#13;
+    top: 0;&#13;
+    left: 0;&#13;
+    right: 0;&#13;
+    bottom: 0;&#13;
+    background-color: rgba(250,250,250,.8);&#13;
+    z-index: 1;&#13;
+}&#13;
+&#13;
+.sp-bar-user {&#13;
+   padding-top: 20px;&#13;
+}&#13;
+&#13;
+#navbar-footer {&#13;
+position: relative;&#13;
+top: 90% !important;&#13;
+transform: translateY(-100%);&#13;
+  left: 30px;&#13;
+  right: 30px&#13;
+  bottom: ;&#13;
+  color: $light-text;&#13;
+}&#13;
+#navbar-footer a {&#13;
+  color: $light-text;&#13;
+}&#13;
+#navbar-footer a:hover {&#13;
+  color: $hover-text;&#13;
+}&#13;
+&#13;
+  </css>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>false</has_preview>
+        <id>upssp_header</id>
+        <internal>false</internal>
+        <link><![CDATA[function(scope, element) {
+	$(document).keyup(function(event) {
+		if (event.which == 9) { //tab key handler + arrow keys
+			if ($(event.target).parents(".dropdown-menu").length == 0) { //if we are NOT inside a dropdown...
+				//close the dropdowns
+				$(".dropdown").removeClass("open");
+				$("[data-toggle='dropdown']").attr("aria-expanded", "false");
+			}
+		}
+	});
+
+	$(element).on('click.nav','.navbar-collapse.in',function(e) {
+		var target = $(e.target);
+		if (target.is('a')) {
+			if (target.hasClass('sp-menu-has-items'))
+				return; // menu item has a submenu, so just toggle it
+
+			// collapse mobile nav if clicked an anchor
+			$(this).removeClass('in').addClass('collapse');
+			return;
+		}
+
+		if (target.parent().hasClass("toggle-dropdown")) {
+			// collapse mobile nav if parent has toggle-dropdown class
+			$(this).removeClass('in').addClass('collapse');
+			return;
+		}
+
+		// if neither target nor parent is an anchor, do nothing
+		if (!target.parent().is('a'))
+			return;
+
+		// collapse mobile nav if target is part of a submenu
+		if (target.parents("ul.dropdown-menu").length > 0)
+			$(this).removeClass('in').addClass('collapse');
+	});
+}
+
+
+// SIDENAV
+
+function link(scope, element, attrs, controller) {
+  
+}]]></link>
+        <name>SSP Header</name>
+        <option_schema/>
+        <public>true</public>
+        <roles/>
+        <script><![CDATA[// Defines the support queue ID that will be linked to by the Live Chat link in header
+data.connect_support_queue_id = $sp.getValue('sp_chat_queue');
+data.login_page = $sp.getValue('login_page');
+data.profileBtnMsg = gs.getMessage("User options");
+var menu = $sp.getValue("sp_rectangle_menu");
+data.menu = $sp.getWidgetFromInstance(menu);
+if (data.menu && data.menu.data) {
+	data.menu.data.replace = true;
+	// Hide login if menu already has link to login
+	data.hasLogin = false;
+	if (data.menu.data.menu.items) {
+		for(var i in data.menu.data.menu.items) {
+			var item = data.menu.data.menu.items[i];
+			if (item.type == 'page' && item.sp_page == data.login_page)
+				data.hasLogin = true;			
+		}
+	}
+}
+
+data.loginWidget = $sp.getWidgetFromInstance('login-modal');
+
+// SIDENAV]]></script>
+        <servicenow>false</servicenow>
+        <static>false</static>
+        <sys_class_name>sp_header_footer</sys_class_name>
+        <sys_created_by>admindavid</sys_created_by>
+        <sys_created_on>2019-06-18 15:18:41</sys_created_on>
+        <sys_id>4b221c72dbc67b00d3d574608c961990</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>SSP Header</sys_name>
+        <sys_package display_value="Persona SSP" source="x_saic4_persona_ss">0e190436db867b00d3d574608c96196d</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Persona SSP">0e190436db867b00d3d574608c96196d</sys_scope>
+        <sys_update_name>sp_header_footer_4b221c72dbc67b00d3d574608c961990</sys_update_name>
+        <sys_updated_by>admindavid</sys_updated_by>
+        <sys_updated_on>2019-06-18 15:18:41</sys_updated_on>
+        <template><![CDATA[<div id="theMainSNHeader">
+
+  <nav class="navbar-inverse" ng-class="::{'navbar':!isViewNative, 'is-native': isViewNative}"
+       role="navigation">
+
+    <!-- Calls to SSP LeftNav in container-fluid -->
+    <button type="button" class="navbar-toggle" data-toggle="offcanvas" ng-init="offcanvas=true"  ng-click="offcanvas = !offcanvas">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>    
+
+<div ng-show="::!isViewNative" class="navbar-header">
+      <a class="navbar-brand" ng-if="::!portal.logo" href="?id={{::portal.homepage_dv}}"><span ng-bind="portal.title"></span></a>
+      <a class="navbar-brand navbar-brand-logo" ng-if="::portal.logo" ng-href="?id={{::portal.homepage_dv}}" ng-click="collapse()" aria-label="${Go to homepage}">
+        <img ng-src="{{::portal.logo}}" title="ServiceNow" role="presentation" alt="${Portal Logo}" />
+      </a>
+</div>    
+
+    <!-- Topnav --> 
+<div sp-navbar-toggle="" class="navbar-right" id="sp-nav-bar">
+      <!-- Include The Menu -->
+      <!-- REMOVED sp-widget widget="::data.menu"></sp-widget -->
+      <ul ng-if="(!user.logged_in && page.id != portal.login_page_dv && !data.hasLogin)" class="nav navbar-nav" role="presentation">
+        <li role="presentation"><a href ng-click="::openLogin()">${Login}</a></li>
+      </ul>
+      <ul ng-if="user.logged_in" class="nav navbar-nav" role="menubar">
+        <!-- chat, avatar, and logout -->
+
+        <li ng-if="::data.connect_support_queue_id" role="presentation"><a href ng-click="openPopUp()" role="menuitem">${Live Chat}</a></li>
+        <li ng-if="showAvatar" class="hidden-xs dropdown" role="presentation">
+          <a href class="toggle-dropdown navbar-right-hide" data-toggle="dropdown" aria-expanded="false" title="{{::data.profileBtnMsg}}" aria-label="{{::data.profileBtnMsg}}: {{::user.name}}" id="profile-dropdown"  role="menuitem" aria-haspopup="true">
+            <span class="navbar-avatar" aria-hidden="true"><sn-avatar class="avatar-small-medium" primary="avatarProfile" /></span>
+            <span class="visible-lg-inline visible-lg-hide">{{::user.name}}</span>
+          </a>
+          <ul class="dropdown-menu" role="menu" aria-label="{{::data.profileBtnMsg}}">
+            <li role="presentation"><a tabindex="-1" ng-href="?id=user_profile&sys_id={{::user.sys_id}}" role="menuitem">${Profile}</a></li>
+            <li ng-if="::!(isViewNative || isViewNativeTablet)" role="presentation"><a tabindex="-1" href="{{::portal.logoutUrl}}" role="menuitem">${Logout}</a></li>
+          </ul>
+        </li>   
+
+      </ul>
+    </div>
+  </nav>
+  
+</div>
+
+
+<!-- Left Nav -->
+
+<div id="wrapper" tabindex="-1" ng-blur="onBlur()" ng-focus="focus=true;blur=false;" ng-blur="blur=true;focus=false;">
+
+  <!-- Sidebar -->
+  <nav class="navbar navbar-inverse navbar-fixed-top" id="sidebar-wrapper" role="navigation" ng-class="::{'navbar':!isViewNative, 'is-native': isViewNative}">
+		<ul class="nav sidebar-nav">
+
+      <!-- Include User -->
+      <div id="sp-user-bar" class="sp-bar-user">
+        <div ng-if="(!user.logged_in && page.id != portal.login_page_dv && !data.hasLogin)" role="presentation">
+          <li role="presentation"><a href ng-click="::openLogin()">${Login}</a></li>
+        </div>
+        <div ng-if="user.logged_in">
+          <!-- chat, avatar, and logout -->
+          <li ng-if="::data.connect_support_queue_id"><a href ng-click="openPopUp()" role="menuitem">${Live Chat}</a></li>
+          <li Xng-if="showAvatar" class="">
+            <a href ng-href="?id=user_profile&sys_id={{::user.sys_id}}" class=""  title="{{::data.profileBtnMsg}}" aria-label="{{::data.profileBtnMsg}}: {{::user.name}}" role="presentation">
+              <span class="navbar-avatar"><sn-avatar class="avatar-small-medium" primary="avatarProfile" /></span>
+              <span class="Xvisible-lg-inline" role="menuitem">{{::user.name}}</span>
+            </a>
+          </li>
+          <li ng-if="::!(isViewNative || isViewNativeTablet)"><a role="menuitem" ng-href="{{::portal.logoutUrl}}">${Logout}</a></li>
+        </div>
+      </div>
+
+      <!-- Include The Menu -- Try to get the ::data.menu-->
+      <div id="sp-nav-bar">  
+        <sp-widget widget="::data.menu"></sp-widget>
+      </div>
+
+		</ul>
+
+<div id="navbar-footer" class="navbar navbar-footer">
+		Copyright 2019 | <a href="">SAIC</a>
+</div>
+
+ </nav>  
+ <!-- /#Sidebar -->
+</div>
+]]></template>
+    </sp_header_footer>
+</record_update>
